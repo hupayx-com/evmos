@@ -15,7 +15,7 @@ import (
 	cryptocodec "github.com/tharsis/ethermint/crypto/codec"
 	"github.com/tharsis/ethermint/crypto/ethsecp256k1"
 	ethermintcodec "github.com/tharsis/ethermint/encoding/codec"
-	"github.com/tharsis/ethermint/types"
+	types "github.com/tharsis/ethermint/types"
 )
 
 func init() {
