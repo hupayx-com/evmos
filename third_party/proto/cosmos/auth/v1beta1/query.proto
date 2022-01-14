@@ -66,3 +66,4 @@ message QueryParamsResponse {
   // params defines the parameters of the module.
   Params params = 1 [(gogoproto.nullable) = false];
 }
+  
