@@ -147,8 +147,7 @@ evmosd query staking validator <account_cosmos>
 In order to keep track of a validator's signatures in the past you can do so by using the `signing-info` command:
 
 ```bash
-evmosd query slashing signing-info <validator-pubkey>\
-  --chain-id=<chain_id>
+evmosd query slashing signing-info <validator-pubkey> --chain-id=<chain_id>
 ```
 
 ## Unjail Validator
@@ -156,9 +155,7 @@ evmosd query slashing signing-info <validator-pubkey>\
 When a validator is "jailed" for downtime, you must submit an `Unjail` transaction from the operator account in order to be able to get block proposer rewards again (depends on the zone fee distribution).
 
 ```bash
-evmosd tx slashing unjail \
-  --from=<key_name> \
-  --chain-id=<chain_id>
+evmosd tx slashing unjail --from=<key_name> --chain-id=<chain_id>
 ```
 
 ## Confirm Your Validator is Running
