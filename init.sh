@@ -21,7 +21,14 @@ evmosd config keyring-backend $KEYRING
 evmosd config chain-id $CHAINID
 
 # if $KEY exists it should be deleted
-evmosd keys add $KEY --keyring-backend $KEYRING --algo $KEYALGO
+#evmosd keys add $KEY --keyring-backend $KEYRING --algo $KEYALGO
+# localKey address 0x7cb61d4117ae31a12e393a1cfa3bac666481d02e  
+
+USER_KEY=$KEY
+USER_MNEMONIC="gesture inject test cycle original hollow east ridge hen combine junk child bacon zero hope comfort vacuum milk pitch cage oppose unhappy lunar seat"
+
+echo $USER_MNEMONIC | evmosd keys add $USER_KEY --recover --keyring-backend test --algo "eth_secp256k1"
+
 
 # Set moniker and chain-id for Evmos (Moniker can be anything, chain-id must be an integer)
 evmosd init $MONIKER --chain-id $CHAINID 
@@ -75,21 +82,21 @@ if [[ $1 == "pending" ]]; then
 fi
 
 # Allocate genesis accounts (cosmos formatted addresses)
-#evmosd add-genesis-account $KEY 100000000000000000000000000ahpx --keyring-backend $KEYRING
+evmosd add-genesis-account $KEY 100000000000000000000000000ahpx --keyring-backend $KEYRING
 
 # Sign genesis transaction
-#evmosd gentx $KEY 1000000000000000000000ahpx --keyring-backend $KEYRING --chain-id $CHAINID
+evmosd gentx $KEY 1000000000000000000000ahpx --keyring-backend $KEYRING --chain-id $CHAINID
 
 # Collect genesis tx
-#evmosd collect-gentxs
+evmosd collect-gentxs
 
 # Run this to ensure everything worked and that the genesis file is setup correctly
-#evmosd validate-genesis
+evmosd validate-genesis
 
 if [[ $1 == "pending" ]]; then
   echo "pending mode is on, please wait for the first block committed."
 fi
 
 # Start the node (remove the --pruning=nothing flag if historical queries are not needed)
-#evmosd start --pruning=nothing $TRACE --log_level $LOGLEVEL --minimum-gas-prices=0.0001ahpx --json-rpc.api eth,txpool,personal,net,debug,web3
+nohup evmosd start --pruning=nothing $TRACE --log_level $LOGLEVEL --minimum-gas-prices=0.0001ahpx --json-rpc.api eth,txpool,personal,net,debug,web3 &
 
