@@ -126,7 +126,7 @@ func init() {
 
 const (
 	// Name defines the application binary name
-	Name = "evmosd"
+	Name        = "evmosd"
 	upgradeName = "Olympus-Mons-v0.4.1"
 )
 
@@ -174,10 +174,14 @@ var (
 		minttypes.ModuleName:           {authtypes.Minter},
 		stakingtypes.BondedPoolName:    {authtypes.Burner, authtypes.Staking},
 		stakingtypes.NotBondedPoolName: {authtypes.Burner, authtypes.Staking},
-		govtypes.ModuleName:            {authtypes.Burner},
-		ibctransfertypes.ModuleName:    {authtypes.Minter, authtypes.Burner},
-		evmtypes.ModuleName:            {authtypes.Minter, authtypes.Burner}, // used for secure addition and subtraction of balance using module account
-		irt.ModuleName:                 {authtypes.Minter, authtypes.Burner},
+
+		// TODO
+		stakingtypes.ModuleName: {authtypes.Burner, authtypes.Minter},
+
+		govtypes.ModuleName:         {authtypes.Burner},
+		ibctransfertypes.ModuleName: {authtypes.Minter, authtypes.Burner},
+		evmtypes.ModuleName:         {authtypes.Minter, authtypes.Burner}, // used for secure addition and subtraction of balance using module account
+		irt.ModuleName:              {authtypes.Minter, authtypes.Burner},
 	}
 
 	// module accounts that are allowed to receive tokens
