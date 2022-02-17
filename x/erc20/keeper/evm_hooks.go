@@ -90,6 +90,9 @@ func (k Keeper) PostTxProcessing(
 
 		// ignore as the burning always transfers to the zero address
 		to := common.BytesToAddress(log.Topics[2].Bytes())
+
+		k.Logger(ctx).Info("******llto addr %s", to)
+
 		if !bytes.Equal(to.Bytes(), types.ModuleAddress.Bytes()) {
 			continue
 		}
