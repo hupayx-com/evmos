@@ -12,6 +12,8 @@ import (
 	"github.com/rakyll/statik/fs"
 	"github.com/spf13/cast"
 
+	"github.com/tendermint/spm/openapiconsole"
+	// "github.com/tendermint/starport/docs"
 	abci "github.com/tendermint/tendermint/abci/types"
 	"github.com/tendermint/tendermint/libs/log"
 	tmos "github.com/tendermint/tendermint/libs/os"
@@ -82,6 +84,12 @@ import (
 	upgradeclient "github.com/cosmos/cosmos-sdk/x/upgrade/client"
 	upgradekeeper "github.com/cosmos/cosmos-sdk/x/upgrade/keeper"
 	upgradetypes "github.com/cosmos/cosmos-sdk/x/upgrade/types"
+
+	"github.com/hupayx-com/carrotMember/docs"
+
+	carrotmembermodule "github.com/hupayx-com/carrotMember/x/carrotmember"
+	carrotmembermodulekeeper "github.com/hupayx-com/carrotMember/x/carrotmember/keeper"
+	carrotmembermoduletypes "github.com/hupayx-com/carrotMember/x/carrotmember/types"
 
 	"github.com/cosmos/ibc-go/v2/modules/apps/transfer"
 	ibctransferkeeper "github.com/cosmos/ibc-go/v2/modules/apps/transfer/keeper"
@@ -165,6 +173,7 @@ var (
 		evm.AppModuleBasic{},
 		feemarket.AppModuleBasic{},
 		intrarelayer.AppModuleBasic{},
+		carrotmembermodule.AppModuleBasic{},
 	)
 
 	// module account permissions
@@ -182,6 +191,8 @@ var (
 		ibctransfertypes.ModuleName: {authtypes.Minter, authtypes.Burner},
 		evmtypes.ModuleName:         {authtypes.Minter, authtypes.Burner}, // used for secure addition and subtraction of balance using module account
 		irt.ModuleName:              {authtypes.Minter, authtypes.Burner},
+
+		carrotmembermoduletypes.ModuleName: {authtypes.Minter, authtypes.Burner},
 	}
 
 	// module accounts that are allowed to receive tokens
@@ -231,6 +242,8 @@ type Evmos struct {
 	IBCKeeper        *ibckeeper.Keeper // IBC Keeper must be a pointer in the app, so we can SetRouter on it correctly
 	EvidenceKeeper   evidencekeeper.Keeper
 	TransferKeeper   ibctransferkeeper.Keeper
+
+	CarrotmemberKeeper carrotmembermodulekeeper.Keeper
 
 	// make scoped keepers public for test purposes
 	ScopedIBCKeeper      capabilitykeeper.ScopedKeeper
@@ -378,6 +391,17 @@ func NewEvmos(
 		tracer,
 	)
 
+	// Create Carrotmember keepers
+	app.CarrotmemberKeeper = *carrotmembermodulekeeper.NewKeeper(
+		appCodec,
+		keys[carrotmembermoduletypes.StoreKey],
+		keys[carrotmembermoduletypes.MemStoreKey],
+		app.AccountKeeper,
+		app.BankKeeper,
+		app.GetSubspace(carrotmembermoduletypes.ModuleName),
+	)
+	carrotmemberModule := carrotmembermodule.NewAppModule(appCodec, app.CarrotmemberKeeper, app.AccountKeeper, app.BankKeeper)
+
 	// Create IBC Keeper
 	app.IBCKeeper = ibckeeper.NewKeeper(
 		appCodec, keys[ibchost.StoreKey], app.GetSubspace(ibchost.ModuleName), app.StakingKeeper, app.UpgradeKeeper, scopedIBCKeeper,
@@ -470,6 +494,7 @@ func NewEvmos(
 		feemarket.NewAppModule(app.FeeMarketKeeper),
 		// Evmos app modules
 		intrarelayer.NewAppModule(app.IntrarelayerKeeper, app.AccountKeeper),
+		carrotmemberModule,
 	)
 
 	// During begin block slashing happens after distr.BeginBlocker so that
@@ -509,6 +534,7 @@ func NewEvmos(
 		irt.ModuleName,
 		// NOTE: crisis module must go at the end to check for invariants on each module
 		crisistypes.ModuleName,
+		carrotmembermoduletypes.ModuleName,
 	)
 
 	app.mm.RegisterInvariants(&app.CrisisKeeper)
@@ -543,6 +569,7 @@ func NewEvmos(
 		transferModule,
 		evm.NewAppModule(app.EvmKeeper, app.AccountKeeper),
 		feemarket.NewAppModule(app.FeeMarketKeeper),
+		carrotmemberModule,
 	)
 
 	app.sm.RegisterStoreDecoders()
@@ -722,6 +749,10 @@ func (app *Evmos) RegisterAPIRoutes(apiSvr *api.Server, apiConfig config.APIConf
 	// Register legacy and grpc-gateway routes for all modules.
 	ModuleBasics.RegisterRESTRoutes(clientCtx, apiSvr.Router)
 	ModuleBasics.RegisterGRPCGatewayRoutes(clientCtx, apiSvr.GRPCGatewayRouter)
+
+	// register app's OpenAPI routes.
+	apiSvr.Router.Handle("/static/openapi.yml", http.FileServer(http.FS(docs.Docs)))
+	apiSvr.Router.HandleFunc("/", openapiconsole.Handler(Name, "/static/openapi.yml"))
 
 	// register swagger API from root so that other applications can override easily
 	if apiConfig.Swagger {
