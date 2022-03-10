@@ -310,6 +310,8 @@ func NewEvmos(
 		evmtypes.StoreKey, feemarkettypes.StoreKey,
 		// evmos keys
 		irt.StoreKey,
+		// carrotmember
+		carrotmembermoduletypes.StoreKey,
 	)
 
 	// Add the EVM transient store key
@@ -838,5 +840,7 @@ func initParamsKeeper(
 	paramsKeeper.Subspace(feemarkettypes.ModuleName)
 	// evmos subspaces
 	paramsKeeper.Subspace(irt.ModuleName)
+	// carrotmember
+	paramsKeeper.Subspace(carrotmembermoduletypes.ModuleName)
 	return paramsKeeper
 }
