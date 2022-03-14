@@ -4,6 +4,29 @@
 
 ## Table of Contents
 
+- [evmos/claims/v1/claims.proto](#evmos/claims/v1/claims.proto)
+    - [Claim](#evmos.claims.v1.Claim)
+    - [ClaimsRecord](#evmos.claims.v1.ClaimsRecord)
+    - [ClaimsRecordAddress](#evmos.claims.v1.ClaimsRecordAddress)
+  
+    - [Action](#evmos.claims.v1.Action)
+  
+- [evmos/claims/v1/genesis.proto](#evmos/claims/v1/genesis.proto)
+    - [GenesisState](#evmos.claims.v1.GenesisState)
+    - [Params](#evmos.claims.v1.Params)
+  
+- [evmos/claims/v1/query.proto](#evmos/claims/v1/query.proto)
+    - [QueryClaimsRecordRequest](#evmos.claims.v1.QueryClaimsRecordRequest)
+    - [QueryClaimsRecordResponse](#evmos.claims.v1.QueryClaimsRecordResponse)
+    - [QueryClaimsRecordsRequest](#evmos.claims.v1.QueryClaimsRecordsRequest)
+    - [QueryClaimsRecordsResponse](#evmos.claims.v1.QueryClaimsRecordsResponse)
+    - [QueryParamsRequest](#evmos.claims.v1.QueryParamsRequest)
+    - [QueryParamsResponse](#evmos.claims.v1.QueryParamsResponse)
+    - [QueryTotalUnclaimedRequest](#evmos.claims.v1.QueryTotalUnclaimedRequest)
+    - [QueryTotalUnclaimedResponse](#evmos.claims.v1.QueryTotalUnclaimedResponse)
+  
+    - [Query](#evmos.claims.v1.Query)
+  
 - [evmos/epochs/v1/genesis.proto](#evmos/epochs/v1/genesis.proto)
     - [EpochInfo](#evmos.epochs.v1.EpochInfo)
     - [GenesisState](#evmos.epochs.v1.GenesisState)
@@ -47,7 +70,353 @@
   
     - [Msg](#evmos.erc20.v1.Msg)
   
+- [evmos/incentives/v1/incentives.proto](#evmos/incentives/v1/incentives.proto)
+    - [CancelIncentiveProposal](#evmos.incentives.v1.CancelIncentiveProposal)
+    - [GasMeter](#evmos.incentives.v1.GasMeter)
+    - [Incentive](#evmos.incentives.v1.Incentive)
+    - [RegisterIncentiveProposal](#evmos.incentives.v1.RegisterIncentiveProposal)
+  
+- [evmos/incentives/v1/genesis.proto](#evmos/incentives/v1/genesis.proto)
+    - [GenesisState](#evmos.incentives.v1.GenesisState)
+    - [Params](#evmos.incentives.v1.Params)
+  
+- [evmos/incentives/v1/query.proto](#evmos/incentives/v1/query.proto)
+    - [QueryAllocationMeterRequest](#evmos.incentives.v1.QueryAllocationMeterRequest)
+    - [QueryAllocationMeterResponse](#evmos.incentives.v1.QueryAllocationMeterResponse)
+    - [QueryAllocationMetersRequest](#evmos.incentives.v1.QueryAllocationMetersRequest)
+    - [QueryAllocationMetersResponse](#evmos.incentives.v1.QueryAllocationMetersResponse)
+    - [QueryGasMeterRequest](#evmos.incentives.v1.QueryGasMeterRequest)
+    - [QueryGasMeterResponse](#evmos.incentives.v1.QueryGasMeterResponse)
+    - [QueryGasMetersRequest](#evmos.incentives.v1.QueryGasMetersRequest)
+    - [QueryGasMetersResponse](#evmos.incentives.v1.QueryGasMetersResponse)
+    - [QueryIncentiveRequest](#evmos.incentives.v1.QueryIncentiveRequest)
+    - [QueryIncentiveResponse](#evmos.incentives.v1.QueryIncentiveResponse)
+    - [QueryIncentivesRequest](#evmos.incentives.v1.QueryIncentivesRequest)
+    - [QueryIncentivesResponse](#evmos.incentives.v1.QueryIncentivesResponse)
+    - [QueryParamsRequest](#evmos.incentives.v1.QueryParamsRequest)
+    - [QueryParamsResponse](#evmos.incentives.v1.QueryParamsResponse)
+  
+    - [Query](#evmos.incentives.v1.Query)
+  
+- [evmos/inflation/v1/inflation.proto](#evmos/inflation/v1/inflation.proto)
+    - [ExponentialCalculation](#evmos.inflation.v1.ExponentialCalculation)
+    - [InflationDistribution](#evmos.inflation.v1.InflationDistribution)
+  
+- [evmos/inflation/v1/genesis.proto](#evmos/inflation/v1/genesis.proto)
+    - [GenesisState](#evmos.inflation.v1.GenesisState)
+    - [Params](#evmos.inflation.v1.Params)
+  
+- [evmos/inflation/v1/query.proto](#evmos/inflation/v1/query.proto)
+    - [QueryEpochMintProvisionRequest](#evmos.inflation.v1.QueryEpochMintProvisionRequest)
+    - [QueryEpochMintProvisionResponse](#evmos.inflation.v1.QueryEpochMintProvisionResponse)
+    - [QueryParamsRequest](#evmos.inflation.v1.QueryParamsRequest)
+    - [QueryParamsResponse](#evmos.inflation.v1.QueryParamsResponse)
+    - [QueryPeriodRequest](#evmos.inflation.v1.QueryPeriodRequest)
+    - [QueryPeriodResponse](#evmos.inflation.v1.QueryPeriodResponse)
+  
+    - [Query](#evmos.inflation.v1.Query)
+  
+- [evmos/vesting/v1/query.proto](#evmos/vesting/v1/query.proto)
+    - [QueryBalancesRequest](#evmos.vesting.v1.QueryBalancesRequest)
+    - [QueryBalancesResponse](#evmos.vesting.v1.QueryBalancesResponse)
+  
+    - [Query](#evmos.vesting.v1.Query)
+  
+- [evmos/vesting/v1/tx.proto](#evmos/vesting/v1/tx.proto)
+    - [MsgClawback](#evmos.vesting.v1.MsgClawback)
+    - [MsgClawbackResponse](#evmos.vesting.v1.MsgClawbackResponse)
+    - [MsgCreateClawbackVestingAccount](#evmos.vesting.v1.MsgCreateClawbackVestingAccount)
+    - [MsgCreateClawbackVestingAccountResponse](#evmos.vesting.v1.MsgCreateClawbackVestingAccountResponse)
+  
+    - [Msg](#evmos.vesting.v1.Msg)
+  
+- [evmos/vesting/v1/vesting.proto](#evmos/vesting/v1/vesting.proto)
+    - [ClawbackVestingAccount](#evmos.vesting.v1.ClawbackVestingAccount)
+  
 - [Scalar Value Types](#scalar-value-types)
+
+
+
+<a name="evmos/claims/v1/claims.proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## evmos/claims/v1/claims.proto
+
+
+
+<a name="evmos.claims.v1.Claim"></a>
+
+### Claim
+Claim marks defines the action, completed flag and the remaining claimable
+amount for a given user. This is only used during client queries.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| `action` | [Action](#evmos.claims.v1.Action) |  | action enum |
+| `completed` | [bool](#bool) |  | true if the action has been completed |
+| `claimable_amount` | [string](#string) |  | claimable token amount for the action. Zero if completed |
+
+
+
+
+
+
+<a name="evmos.claims.v1.ClaimsRecord"></a>
+
+### ClaimsRecord
+ClaimsRecord defines the initial claimable airdrop amount and the list of
+completed actions to claim the tokens.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| `initial_claimable_amount` | [string](#string) |  | total initial claimable amount for the user |
+| `actions_completed` | [bool](#bool) | repeated | slice of the available actions completed |
+
+
+
+
+
+
+<a name="evmos.claims.v1.ClaimsRecordAddress"></a>
+
+### ClaimsRecordAddress
+ClaimsRecordAddress is the metadata of claims data per address
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| `address` | [string](#string) |  | bech32 or hex address of claim user |
+| `initial_claimable_amount` | [string](#string) |  | total initial claimable amount for the user |
+| `actions_completed` | [bool](#bool) | repeated | slice of the available actions completed |
+
+
+
+
+
+ <!-- end messages -->
+
+
+<a name="evmos.claims.v1.Action"></a>
+
+### Action
+Action defines the list of available actions to claim the airdrop tokens.
+
+| Name | Number | Description |
+| ---- | ------ | ----------- |
+| ACTION_UNSPECIFIED | 0 | UNSPECIFIED defines an invalid action. |
+| ACTION_VOTE | 1 | VOTE defines a proposal vote. |
+| ACTION_DELEGATE | 2 | DELEGATE defines an staking delegation. |
+| ACTION_EVM | 3 | EVM defines an EVM transaction. |
+| ACTION_IBC_TRANSFER | 4 | IBC Transfer defines a fungible token transfer transaction via IBC. |
+
+
+ <!-- end enums -->
+
+ <!-- end HasExtensions -->
+
+ <!-- end services -->
+
+
+
+<a name="evmos/claims/v1/genesis.proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## evmos/claims/v1/genesis.proto
+
+
+
+<a name="evmos.claims.v1.GenesisState"></a>
+
+### GenesisState
+GenesisState defines the claims module's genesis state.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| `params` | [Params](#evmos.claims.v1.Params) |  | params defines all the parameters of the module. |
+| `claims_records` | [ClaimsRecordAddress](#evmos.claims.v1.ClaimsRecordAddress) | repeated | list of claim records with the corresponding airdrop recipient |
+
+
+
+
+
+
+<a name="evmos.claims.v1.Params"></a>
+
+### Params
+Params defines the claims module's parameters.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| `enable_claims` | [bool](#bool) |  | enable claiming process |
+| `airdrop_start_time` | [google.protobuf.Timestamp](#google.protobuf.Timestamp) |  | timestamp of the airdrop start |
+| `duration_until_decay` | [google.protobuf.Duration](#google.protobuf.Duration) |  | duration until decay of claimable tokens begin |
+| `duration_of_decay` | [google.protobuf.Duration](#google.protobuf.Duration) |  | duration of the token claim decay period |
+| `claims_denom` | [string](#string) |  | denom of claimable coin |
+| `authorized_channels` | [string](#string) | repeated | list of authorized channel identifiers that can perform address attestations via IBC. |
+| `evm_channels` | [string](#string) | repeated | list of channel identifiers from EVM compatible chains |
+
+
+
+
+
+ <!-- end messages -->
+
+ <!-- end enums -->
+
+ <!-- end HasExtensions -->
+
+ <!-- end services -->
+
+
+
+<a name="evmos/claims/v1/query.proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## evmos/claims/v1/query.proto
+
+
+
+<a name="evmos.claims.v1.QueryClaimsRecordRequest"></a>
+
+### QueryClaimsRecordRequest
+QueryClaimsRecordRequest is the request type for the Query/ClaimsRecord RPC
+method.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| `address` | [string](#string) |  |  |
+
+
+
+
+
+
+<a name="evmos.claims.v1.QueryClaimsRecordResponse"></a>
+
+### QueryClaimsRecordResponse
+QueryClaimsRecordResponse is the response type for the Query/ClaimsRecord RPC
+method.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| `initial_claimable_amount` | [string](#string) |  | total initial claimable amount for the user |
+| `claims` | [Claim](#evmos.claims.v1.Claim) | repeated |  |
+
+
+
+
+
+
+<a name="evmos.claims.v1.QueryClaimsRecordsRequest"></a>
+
+### QueryClaimsRecordsRequest
+QueryClaimsRecordsRequest is the request type for the Query/ClaimsRecords RPC
+method.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| `pagination` | [cosmos.base.query.v1beta1.PageRequest](#cosmos.base.query.v1beta1.PageRequest) |  | pagination defines an optional pagination for the request. |
+
+
+
+
+
+
+<a name="evmos.claims.v1.QueryClaimsRecordsResponse"></a>
+
+### QueryClaimsRecordsResponse
+QueryClaimsRecordsResponse is the response type for the Query/ClaimsRecords
+RPC method.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| `claims` | [ClaimsRecordAddress](#evmos.claims.v1.ClaimsRecordAddress) | repeated |  |
+| `pagination` | [cosmos.base.query.v1beta1.PageResponse](#cosmos.base.query.v1beta1.PageResponse) |  | pagination defines the pagination in the response. |
+
+
+
+
+
+
+<a name="evmos.claims.v1.QueryParamsRequest"></a>
+
+### QueryParamsRequest
+QueryParamsRequest is the request type for the Query/Params RPC method.
+
+
+
+
+
+
+<a name="evmos.claims.v1.QueryParamsResponse"></a>
+
+### QueryParamsResponse
+QueryParamsResponse is the response type for the Query/Params RPC method.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| `params` | [Params](#evmos.claims.v1.Params) |  | params defines the parameters of the module. |
+
+
+
+
+
+
+<a name="evmos.claims.v1.QueryTotalUnclaimedRequest"></a>
+
+### QueryTotalUnclaimedRequest
+QueryTotalUnclaimedRequest is the request type for the Query/TotalUnclaimed
+RPC method.
+
+
+
+
+
+
+<a name="evmos.claims.v1.QueryTotalUnclaimedResponse"></a>
+
+### QueryTotalUnclaimedResponse
+QueryTotalUnclaimedResponse is the response type for the Query/TotalUnclaimed
+RPC method.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| `coins` | [cosmos.base.v1beta1.Coin](#cosmos.base.v1beta1.Coin) | repeated | coins define the unclaimed coins |
+
+
+
+
+
+ <!-- end messages -->
+
+ <!-- end enums -->
+
+ <!-- end HasExtensions -->
+
+
+<a name="evmos.claims.v1.Query"></a>
+
+### Query
+Query defines the gRPC querier service.
+
+| Method Name | Request Type | Response Type | Description | HTTP Verb | Endpoint |
+| ----------- | ------------ | ------------- | ------------| ------- | -------- |
+| `TotalUnclaimed` | [QueryTotalUnclaimedRequest](#evmos.claims.v1.QueryTotalUnclaimedRequest) | [QueryTotalUnclaimedResponse](#evmos.claims.v1.QueryTotalUnclaimedResponse) | TotalUnclaimed queries the total unclaimed tokens from the airdrop | GET|/evmos/claims/v1/total_unclaimed|
+| `Params` | [QueryParamsRequest](#evmos.claims.v1.QueryParamsRequest) | [QueryParamsResponse](#evmos.claims.v1.QueryParamsResponse) | Params returns the claims module parameters | GET|/evmos/claims/v1/params|
+| `ClaimsRecords` | [QueryClaimsRecordsRequest](#evmos.claims.v1.QueryClaimsRecordsRequest) | [QueryClaimsRecordsResponse](#evmos.claims.v1.QueryClaimsRecordsResponse) | ClaimsRecords returns all the claims record | GET|/evmos/claims/v1/claims_records|
+| `ClaimsRecord` | [QueryClaimsRecordRequest](#evmos.claims.v1.QueryClaimsRecordRequest) | [QueryClaimsRecordResponse](#evmos.claims.v1.QueryClaimsRecordResponse) | ClaimsRecord returns the claims record for a given address | GET|/evmos/claims/v1/claims_records/{address}|
+
+ <!-- end services -->
 
 
 
@@ -425,7 +794,8 @@ method.
 <a name="evmos.erc20.v1.QueryTokenPairsRequest"></a>
 
 ### QueryTokenPairsRequest
-QueryTokenPairsRequest is the request type for the Query/TokenPairs RPC method.
+QueryTokenPairsRequest is the request type for the Query/TokenPairs RPC
+method.
 
 
 | Field | Type | Label | Description |
@@ -552,6 +922,800 @@ Msg defines the erc20 Msg service.
 | ----------- | ------------ | ------------- | ------------| ------- | -------- |
 | `ConvertCoin` | [MsgConvertCoin](#evmos.erc20.v1.MsgConvertCoin) | [MsgConvertCoinResponse](#evmos.erc20.v1.MsgConvertCoinResponse) | ConvertCoin mints a ERC20 representation of the SDK Coin denom that is registered on the token mapping. | GET|/evmos/erc20/v1/tx/convert_coin|
 | `ConvertERC20` | [MsgConvertERC20](#evmos.erc20.v1.MsgConvertERC20) | [MsgConvertERC20Response](#evmos.erc20.v1.MsgConvertERC20Response) | ConvertERC20 mints a Cosmos coin representation of the ERC20 token contract that is registered on the token mapping. | GET|/evmos/erc20/v1/tx/convert_erc20|
+
+ <!-- end services -->
+
+
+
+<a name="evmos/incentives/v1/incentives.proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## evmos/incentives/v1/incentives.proto
+
+
+
+<a name="evmos.incentives.v1.CancelIncentiveProposal"></a>
+
+### CancelIncentiveProposal
+CancelIncentiveProposal is a gov Content type to cancel an incentive
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| `title` | [string](#string) |  | title of the proposal |
+| `description` | [string](#string) |  | proposal description |
+| `contract` | [string](#string) |  | contract address |
+
+
+
+
+
+
+<a name="evmos.incentives.v1.GasMeter"></a>
+
+### GasMeter
+GasMeter tracks the cumulative gas spent per participant in one epoch
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| `contract` | [string](#string) |  | hex address of the incentivized contract |
+| `participant` | [string](#string) |  | participant address that interacts with the incentive |
+| `cumulative_gas` | [uint64](#uint64) |  | cumulative gas spent during the epoch |
+
+
+
+
+
+
+<a name="evmos.incentives.v1.Incentive"></a>
+
+### Incentive
+Incentive defines an instance that organizes distribution conditions for a
+given smart contract
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| `contract` | [string](#string) |  | contract address |
+| `allocations` | [cosmos.base.v1beta1.DecCoin](#cosmos.base.v1beta1.DecCoin) | repeated | denoms and percentage of rewards to be allocated |
+| `epochs` | [uint32](#uint32) |  | number of remaining epochs |
+| `start_time` | [google.protobuf.Timestamp](#google.protobuf.Timestamp) |  | distribution start time |
+| `total_gas` | [uint64](#uint64) |  | cumulative gas spent by all gasmeters of the incentive during the epoch |
+
+
+
+
+
+
+<a name="evmos.incentives.v1.RegisterIncentiveProposal"></a>
+
+### RegisterIncentiveProposal
+RegisterIncentiveProposal is a gov Content type to register an incentive
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| `title` | [string](#string) |  | title of the proposal |
+| `description` | [string](#string) |  | proposal description |
+| `contract` | [string](#string) |  | contract address |
+| `allocations` | [cosmos.base.v1beta1.DecCoin](#cosmos.base.v1beta1.DecCoin) | repeated | denoms and percentage of rewards to be allocated |
+| `epochs` | [uint32](#uint32) |  | number of remaining epochs |
+
+
+
+
+
+ <!-- end messages -->
+
+ <!-- end enums -->
+
+ <!-- end HasExtensions -->
+
+ <!-- end services -->
+
+
+
+<a name="evmos/incentives/v1/genesis.proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## evmos/incentives/v1/genesis.proto
+
+
+
+<a name="evmos.incentives.v1.GenesisState"></a>
+
+### GenesisState
+GenesisState defines the module's genesis state.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| `params` | [Params](#evmos.incentives.v1.Params) |  | module parameters |
+| `incentives` | [Incentive](#evmos.incentives.v1.Incentive) | repeated | active incentives |
+| `gas_meters` | [GasMeter](#evmos.incentives.v1.GasMeter) | repeated | active Gasmeters |
+
+
+
+
+
+
+<a name="evmos.incentives.v1.Params"></a>
+
+### Params
+Params defines the incentives module params
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| `enable_incentives` | [bool](#bool) |  | parameter to enable incentives |
+| `allocation_limit` | [string](#string) |  | maximum percentage an incentive can allocate per denomination |
+| `incentives_epoch_identifier` | [string](#string) |  | identifier for the epochs module hooks |
+| `reward_scaler` | [string](#string) |  | scaling factor for capping rewards |
+
+
+
+
+
+ <!-- end messages -->
+
+ <!-- end enums -->
+
+ <!-- end HasExtensions -->
+
+ <!-- end services -->
+
+
+
+<a name="evmos/incentives/v1/query.proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## evmos/incentives/v1/query.proto
+
+
+
+<a name="evmos.incentives.v1.QueryAllocationMeterRequest"></a>
+
+### QueryAllocationMeterRequest
+QueryAllocationMeterRequest is the request type for the Query/AllocationMeter
+RPC method.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| `denom` | [string](#string) |  | denom is the coin denom to query an allocation meter for. |
+
+
+
+
+
+
+<a name="evmos.incentives.v1.QueryAllocationMeterResponse"></a>
+
+### QueryAllocationMeterResponse
+QueryAllocationMeterResponse is the response type for the
+Query/AllocationMeter RPC method.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| `allocation_meter` | [cosmos.base.v1beta1.DecCoin](#cosmos.base.v1beta1.DecCoin) |  |  |
+
+
+
+
+
+
+<a name="evmos.incentives.v1.QueryAllocationMetersRequest"></a>
+
+### QueryAllocationMetersRequest
+QueryAllocationMetersRequest is the request type for the
+Query/AllocationMeters RPC method.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| `pagination` | [cosmos.base.query.v1beta1.PageRequest](#cosmos.base.query.v1beta1.PageRequest) |  | pagination defines an optional pagination for the request. |
+
+
+
+
+
+
+<a name="evmos.incentives.v1.QueryAllocationMetersResponse"></a>
+
+### QueryAllocationMetersResponse
+QueryAllocationMetersResponse is the response type for the
+Query/AllocationMeters RPC method.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| `allocation_meters` | [cosmos.base.v1beta1.DecCoin](#cosmos.base.v1beta1.DecCoin) | repeated |  |
+| `pagination` | [cosmos.base.query.v1beta1.PageResponse](#cosmos.base.query.v1beta1.PageResponse) |  | pagination defines the pagination in the response. |
+
+
+
+
+
+
+<a name="evmos.incentives.v1.QueryGasMeterRequest"></a>
+
+### QueryGasMeterRequest
+QueryGasMeterRequest is the request type for the Query/Incentive RPC method.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| `contract` | [string](#string) |  | contract identifier is the hex contract address of a contract |
+| `participant` | [string](#string) |  | participant identifier is the hex address of a user |
+
+
+
+
+
+
+<a name="evmos.incentives.v1.QueryGasMeterResponse"></a>
+
+### QueryGasMeterResponse
+QueryGasMeterResponse is the response type for the Query/Incentive RPC
+method.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| `gas_meter` | [uint64](#uint64) |  |  |
+
+
+
+
+
+
+<a name="evmos.incentives.v1.QueryGasMetersRequest"></a>
+
+### QueryGasMetersRequest
+QueryGasMetersRequest is the request type for the Query/Incentives RPC
+method.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| `contract` | [string](#string) |  | contract is the hex contract address of a incentivized smart contract |
+| `pagination` | [cosmos.base.query.v1beta1.PageRequest](#cosmos.base.query.v1beta1.PageRequest) |  | pagination defines an optional pagination for the request. |
+
+
+
+
+
+
+<a name="evmos.incentives.v1.QueryGasMetersResponse"></a>
+
+### QueryGasMetersResponse
+QueryGasMetersResponse is the response type for the Query/Incentives RPC
+method.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| `gas_meters` | [GasMeter](#evmos.incentives.v1.GasMeter) | repeated |  |
+| `pagination` | [cosmos.base.query.v1beta1.PageResponse](#cosmos.base.query.v1beta1.PageResponse) |  | pagination defines the pagination in the response. |
+
+
+
+
+
+
+<a name="evmos.incentives.v1.QueryIncentiveRequest"></a>
+
+### QueryIncentiveRequest
+QueryIncentiveRequest is the request type for the Query/Incentive RPC method.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| `contract` | [string](#string) |  | contract identifier is the hex contract address of a contract |
+
+
+
+
+
+
+<a name="evmos.incentives.v1.QueryIncentiveResponse"></a>
+
+### QueryIncentiveResponse
+QueryIncentiveResponse is the response type for the Query/Incentive RPC
+method.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| `incentive` | [Incentive](#evmos.incentives.v1.Incentive) |  |  |
+
+
+
+
+
+
+<a name="evmos.incentives.v1.QueryIncentivesRequest"></a>
+
+### QueryIncentivesRequest
+QueryIncentivesRequest is the request type for the Query/Incentives RPC
+method.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| `pagination` | [cosmos.base.query.v1beta1.PageRequest](#cosmos.base.query.v1beta1.PageRequest) |  | pagination defines an optional pagination for the request. |
+
+
+
+
+
+
+<a name="evmos.incentives.v1.QueryIncentivesResponse"></a>
+
+### QueryIncentivesResponse
+QueryIncentivesResponse is the response type for the Query/Incentives RPC
+method.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| `incentives` | [Incentive](#evmos.incentives.v1.Incentive) | repeated |  |
+| `pagination` | [cosmos.base.query.v1beta1.PageResponse](#cosmos.base.query.v1beta1.PageResponse) |  | pagination defines the pagination in the response. |
+
+
+
+
+
+
+<a name="evmos.incentives.v1.QueryParamsRequest"></a>
+
+### QueryParamsRequest
+QueryParamsRequest is the request type for the Query/Params RPC method.
+
+
+
+
+
+
+<a name="evmos.incentives.v1.QueryParamsResponse"></a>
+
+### QueryParamsResponse
+QueryParamsResponse is the response type for the Query/Params RPC
+method.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| `params` | [Params](#evmos.incentives.v1.Params) |  |  |
+
+
+
+
+
+ <!-- end messages -->
+
+ <!-- end enums -->
+
+ <!-- end HasExtensions -->
+
+
+<a name="evmos.incentives.v1.Query"></a>
+
+### Query
+Query defines the gRPC querier service.
+
+| Method Name | Request Type | Response Type | Description | HTTP Verb | Endpoint |
+| ----------- | ------------ | ------------- | ------------| ------- | -------- |
+| `Incentives` | [QueryIncentivesRequest](#evmos.incentives.v1.QueryIncentivesRequest) | [QueryIncentivesResponse](#evmos.incentives.v1.QueryIncentivesResponse) | Incentives retrieves registered incentives | GET|/evmos/incentives/v1/incentives|
+| `Incentive` | [QueryIncentiveRequest](#evmos.incentives.v1.QueryIncentiveRequest) | [QueryIncentiveResponse](#evmos.incentives.v1.QueryIncentiveResponse) | Incentive retrieves a registered incentive | GET|/evmos/incentives/v1/incentives/{contract}|
+| `GasMeters` | [QueryGasMetersRequest](#evmos.incentives.v1.QueryGasMetersRequest) | [QueryGasMetersResponse](#evmos.incentives.v1.QueryGasMetersResponse) | GasMeters retrieves active gas meters for a given contract | GET|/evmos/incentives/v1/gas_meters/{contract}|
+| `GasMeter` | [QueryGasMeterRequest](#evmos.incentives.v1.QueryGasMeterRequest) | [QueryGasMeterResponse](#evmos.incentives.v1.QueryGasMeterResponse) | GasMeter Retrieves a active gas meter | GET|/evmos/incentives/v1/gas_meters/{contract}/{participant}|
+| `AllocationMeters` | [QueryAllocationMetersRequest](#evmos.incentives.v1.QueryAllocationMetersRequest) | [QueryAllocationMetersResponse](#evmos.incentives.v1.QueryAllocationMetersResponse) | AllocationMeters retrieves active allocation meters for a given denomination | GET|/evmos/incentives/v1/allocation_meters|
+| `AllocationMeter` | [QueryAllocationMeterRequest](#evmos.incentives.v1.QueryAllocationMeterRequest) | [QueryAllocationMeterResponse](#evmos.incentives.v1.QueryAllocationMeterResponse) | AllocationMeter Retrieves a active gas meter | GET|/evmos/incentives/v1/allocation_meters/{denom}|
+| `Params` | [QueryParamsRequest](#evmos.incentives.v1.QueryParamsRequest) | [QueryParamsResponse](#evmos.incentives.v1.QueryParamsResponse) | Params retrieves the incentives module params | GET|/evmos/incentives/v1/params|
+
+ <!-- end services -->
+
+
+
+<a name="evmos/inflation/v1/inflation.proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## evmos/inflation/v1/inflation.proto
+
+
+
+<a name="evmos.inflation.v1.ExponentialCalculation"></a>
+
+### ExponentialCalculation
+ExponentialCalculation holds factors to calculate exponential inflation on
+each period. Calculation reference:
+periodProvision = exponentialDecay       *  bondingIncentive
+f(x)            = (a * (1 - r) ^ x + c)  *  (1 + max_variance - bondedRatio *
+(max_variance / bonding_target))
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| `a` | [string](#string) |  | initial value |
+| `r` | [string](#string) |  | reduction factor |
+| `c` | [string](#string) |  | long term inflation |
+| `bonding_target` | [string](#string) |  | bonding target |
+| `max_variance` | [string](#string) |  | max variance |
+
+
+
+
+
+
+<a name="evmos.inflation.v1.InflationDistribution"></a>
+
+### InflationDistribution
+InflationDistribution defines the distribution in which inflation is
+allocated through minting on each epoch (staking, incentives, community). It
+excludes the team vesting distribution, as this is minted once at genesis.
+The initial InflationDistribution can be calculated from the Evmvos Token
+Model like this:
+mintDistribution1 = distribution1 / (1 - teamVestingDistribution)
+0.5333333         = 40%           / (1 - 25%)
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| `staking_rewards` | [string](#string) |  | staking_rewards defines the proportion of the minted minted_denom that is to be allocated as staking rewards |
+| `usage_incentives` | [string](#string) |  | usage_incentives defines the proportion of the minted minted_denom that is to be allocated to the incentives module address |
+| `community_pool` | [string](#string) |  | community_pool defines the proportion of the minted minted_denom that is to be allocated to the community pool |
+
+
+
+
+
+ <!-- end messages -->
+
+ <!-- end enums -->
+
+ <!-- end HasExtensions -->
+
+ <!-- end services -->
+
+
+
+<a name="evmos/inflation/v1/genesis.proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## evmos/inflation/v1/genesis.proto
+
+
+
+<a name="evmos.inflation.v1.GenesisState"></a>
+
+### GenesisState
+GenesisState defines the inflation module's genesis state.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| `params` | [Params](#evmos.inflation.v1.Params) |  | params defines all the paramaters of the module. |
+| `period` | [uint64](#uint64) |  | amount of past periods, based on the epochs per period param |
+| `epoch_identifier` | [string](#string) |  | inflation epoch identifier |
+| `epochs_per_period` | [int64](#int64) |  | number of epochs after which inflation is recalculated |
+
+
+
+
+
+
+<a name="evmos.inflation.v1.Params"></a>
+
+### Params
+Params holds parameters for the inflation module.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| `mint_denom` | [string](#string) |  | type of coin to mint |
+| `exponential_calculation` | [ExponentialCalculation](#evmos.inflation.v1.ExponentialCalculation) |  | variables to calculate exponential inflation |
+| `inflation_distribution` | [InflationDistribution](#evmos.inflation.v1.InflationDistribution) |  | inflation distribution of the minted denom |
+
+
+
+
+
+ <!-- end messages -->
+
+ <!-- end enums -->
+
+ <!-- end HasExtensions -->
+
+ <!-- end services -->
+
+
+
+<a name="evmos/inflation/v1/query.proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## evmos/inflation/v1/query.proto
+
+
+
+<a name="evmos.inflation.v1.QueryEpochMintProvisionRequest"></a>
+
+### QueryEpochMintProvisionRequest
+QueryEpochMintProvisionRequest is the request type for the
+Query/EpochMintProvision RPC method.
+
+
+
+
+
+
+<a name="evmos.inflation.v1.QueryEpochMintProvisionResponse"></a>
+
+### QueryEpochMintProvisionResponse
+QueryEpochMintProvisionResponse is the response type for the
+Query/EpochMintProvision RPC method.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| `epoch_mint_provision` | [bytes](#bytes) |  | epoch_mint_provision is the current minting per epoch provision value. |
+
+
+
+
+
+
+<a name="evmos.inflation.v1.QueryParamsRequest"></a>
+
+### QueryParamsRequest
+QueryParamsRequest is the request type for the Query/Params RPC method.
+
+
+
+
+
+
+<a name="evmos.inflation.v1.QueryParamsResponse"></a>
+
+### QueryParamsResponse
+QueryParamsResponse is the response type for the Query/Params RPC method.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| `params` | [Params](#evmos.inflation.v1.Params) |  | params defines the parameters of the module. |
+
+
+
+
+
+
+<a name="evmos.inflation.v1.QueryPeriodRequest"></a>
+
+### QueryPeriodRequest
+QueryPeriodRequest is the request type for the Query/Period RPC method.
+
+
+
+
+
+
+<a name="evmos.inflation.v1.QueryPeriodResponse"></a>
+
+### QueryPeriodResponse
+QueryPeriodResponse is the response type for the Query/Period RPC method.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| `period` | [uint64](#uint64) |  | period is the current minting per epoch provision value. |
+
+
+
+
+
+ <!-- end messages -->
+
+ <!-- end enums -->
+
+ <!-- end HasExtensions -->
+
+
+<a name="evmos.inflation.v1.Query"></a>
+
+### Query
+Query provides defines the gRPC querier service.
+
+| Method Name | Request Type | Response Type | Description | HTTP Verb | Endpoint |
+| ----------- | ------------ | ------------- | ------------| ------- | -------- |
+| `Period` | [QueryPeriodRequest](#evmos.inflation.v1.QueryPeriodRequest) | [QueryPeriodResponse](#evmos.inflation.v1.QueryPeriodResponse) | Period retrieves current period. | GET|/evmos/inflation/v1/period|
+| `EpochMintProvision` | [QueryEpochMintProvisionRequest](#evmos.inflation.v1.QueryEpochMintProvisionRequest) | [QueryEpochMintProvisionResponse](#evmos.inflation.v1.QueryEpochMintProvisionResponse) | EpochMintProvision retrieves current minting epoch provision value. | GET|/evmos/inflation/v1/epoch_mint_provision|
+| `Params` | [QueryParamsRequest](#evmos.inflation.v1.QueryParamsRequest) | [QueryParamsResponse](#evmos.inflation.v1.QueryParamsResponse) | Params retrieves the total set of minting parameters. | GET|/evmos/inflation/v1/params|
+
+ <!-- end services -->
+
+
+
+<a name="evmos/vesting/v1/query.proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## evmos/vesting/v1/query.proto
+
+
+
+<a name="evmos.vesting.v1.QueryBalancesRequest"></a>
+
+### QueryBalancesRequest
+QueryBalancesRequest is the request type for the Query/Balances RPC method.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| `address` | [string](#string) |  | address of the clawback vesting account |
+
+
+
+
+
+
+<a name="evmos.vesting.v1.QueryBalancesResponse"></a>
+
+### QueryBalancesResponse
+QueryBalancesResponse is the response type for the Query/Balances RPC
+method.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| `locked` | [cosmos.base.v1beta1.Coin](#cosmos.base.v1beta1.Coin) | repeated | current amount of locked tokens |
+| `unvested` | [cosmos.base.v1beta1.Coin](#cosmos.base.v1beta1.Coin) | repeated | current amount of unvested tokens |
+| `vested` | [cosmos.base.v1beta1.Coin](#cosmos.base.v1beta1.Coin) | repeated | current amount of vested tokens |
+
+
+
+
+
+ <!-- end messages -->
+
+ <!-- end enums -->
+
+ <!-- end HasExtensions -->
+
+
+<a name="evmos.vesting.v1.Query"></a>
+
+### Query
+Query defines the gRPC querier service.
+
+| Method Name | Request Type | Response Type | Description | HTTP Verb | Endpoint |
+| ----------- | ------------ | ------------- | ------------| ------- | -------- |
+| `Balances` | [QueryBalancesRequest](#evmos.vesting.v1.QueryBalancesRequest) | [QueryBalancesResponse](#evmos.vesting.v1.QueryBalancesResponse) | Retrieves the unvested, vested and locked tokens for a vesting account | GET|/evmos/vesting/v1/balances/{address}|
+
+ <!-- end services -->
+
+
+
+<a name="evmos/vesting/v1/tx.proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## evmos/vesting/v1/tx.proto
+
+
+
+<a name="evmos.vesting.v1.MsgClawback"></a>
+
+### MsgClawback
+MsgClawback defines a message that removes unvested tokens from a
+ClawbackVestingAccount.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| `funder_address` | [string](#string) |  | funder_address is the address which funded the account |
+| `account_address` | [string](#string) |  | account_address is the address of the ClawbackVestingAccount to claw back from. |
+| `dest_address` | [string](#string) |  | dest_address specifies where the clawed-back tokens should be transferred to. If empty, the tokens will be transferred back to the original funder of the account. |
+
+
+
+
+
+
+<a name="evmos.vesting.v1.MsgClawbackResponse"></a>
+
+### MsgClawbackResponse
+MsgClawbackResponse defines the MsgClawback response type.
+
+
+
+
+
+
+<a name="evmos.vesting.v1.MsgCreateClawbackVestingAccount"></a>
+
+### MsgCreateClawbackVestingAccount
+MsgCreateClawbackVestingAccount defines a message that enables creating a ClawbackVestingAccount.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| `from_address` | [string](#string) |  | from_address specifies the account to provide the funds and sign the clawback request |
+| `to_address` | [string](#string) |  | to_address specifies the account to receive the funds |
+| `start_time` | [google.protobuf.Timestamp](#google.protobuf.Timestamp) |  | start_time defines the time at which the vesting period begins |
+| `lockup_periods` | [cosmos.vesting.v1beta1.Period](#cosmos.vesting.v1beta1.Period) | repeated | lockup_periods defines the unlocking schedule relative to the start_time |
+| `vesting_periods` | [cosmos.vesting.v1beta1.Period](#cosmos.vesting.v1beta1.Period) | repeated | vesting_periods defines thevesting schedule relative to the start_time |
+| `merge` | [bool](#bool) |  | merge specifies a the creation mechanism for existing ClawbackVestingAccounts. If true, merge this new grant into an existing ClawbackVestingAccount, or create it if it does not exist. If false, creates a new account. New grants to an existing account must be from the same from_address. |
+
+
+
+
+
+
+<a name="evmos.vesting.v1.MsgCreateClawbackVestingAccountResponse"></a>
+
+### MsgCreateClawbackVestingAccountResponse
+MsgCreateClawbackVestingAccountResponse defines the
+MsgCreateClawbackVestingAccount response type.
+
+
+
+
+
+ <!-- end messages -->
+
+ <!-- end enums -->
+
+ <!-- end HasExtensions -->
+
+
+<a name="evmos.vesting.v1.Msg"></a>
+
+### Msg
+Msg defines the vesting Msg service.
+
+| Method Name | Request Type | Response Type | Description | HTTP Verb | Endpoint |
+| ----------- | ------------ | ------------- | ------------| ------- | -------- |
+| `CreateClawbackVestingAccount` | [MsgCreateClawbackVestingAccount](#evmos.vesting.v1.MsgCreateClawbackVestingAccount) | [MsgCreateClawbackVestingAccountResponse](#evmos.vesting.v1.MsgCreateClawbackVestingAccountResponse) | CreateClawbackVestingAccount creats a vesting account that is subject to clawback and the configuration of vesting and lockup schedules. | GET|/evmos/vesting/v1/tx/create_clawback_vesting_account|
+| `Clawback` | [MsgClawback](#evmos.vesting.v1.MsgClawback) | [MsgClawbackResponse](#evmos.vesting.v1.MsgClawbackResponse) | Clawback removes the unvested tokens from a ClawbackVestingAccount. | GET|/evmos/vesting/v1/tx/clawback|
+
+ <!-- end services -->
+
+
+
+<a name="evmos/vesting/v1/vesting.proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## evmos/vesting/v1/vesting.proto
+
+
+
+<a name="evmos.vesting.v1.ClawbackVestingAccount"></a>
+
+### ClawbackVestingAccount
+ClawbackVestingAccount implements the VestingAccount interface. It provides
+an account that can hold contributions subject to "lockup" (like a
+PeriodicVestingAccount), or vesting which is subject to clawback
+of unvested tokens, or a combination (tokens vest, but are still locked).
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| `base_vesting_account` | [cosmos.vesting.v1beta1.BaseVestingAccount](#cosmos.vesting.v1beta1.BaseVestingAccount) |  | base_vesting_account implements the VestingAccount interface. It contains all the necessary fields needed for any vesting account implementation |
+| `funder_address` | [string](#string) |  | funder_address specifies the account which can perform clawback |
+| `start_time` | [google.protobuf.Timestamp](#google.protobuf.Timestamp) |  | start_time defines the time at which the vesting period begins |
+| `lockup_periods` | [cosmos.vesting.v1beta1.Period](#cosmos.vesting.v1beta1.Period) | repeated | lockup_periods defines the unlocking schedule relative to the start_time |
+| `vesting_periods` | [cosmos.vesting.v1beta1.Period](#cosmos.vesting.v1beta1.Period) | repeated | vesting_periods defines the vesting schedule relative to the start_time |
+
+
+
+
+
+ <!-- end messages -->
+
+ <!-- end enums -->
+
+ <!-- end HasExtensions -->
 
  <!-- end services -->
 

@@ -4,14 +4,13 @@ import (
 	"testing"
 	"time"
 
-	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/stretchr/testify/require"
 	tmproto "github.com/tendermint/tendermint/proto/tendermint/types"
 	feemarkettypes "github.com/tharsis/ethermint/x/feemarket/types"
 
-	simapp "github.com/tharsis/evmos/app"
-	"github.com/tharsis/evmos/x/epochs"
-	"github.com/tharsis/evmos/x/epochs/types"
+	simapp "github.com/tharsis/evmos/v2/app"
+	"github.com/tharsis/evmos/v2/x/epochs"
+	"github.com/tharsis/evmos/v2/x/epochs/types"
 )
 
 func TestEpochsExportGenesis(t *testing.T) {
@@ -19,7 +18,7 @@ func TestEpochsExportGenesis(t *testing.T) {
 	feemarketGenesis := feemarkettypes.DefaultGenesisState()
 	feemarketGenesis.Params.EnableHeight = 1
 	feemarketGenesis.Params.NoBaseFee = false
-	feemarketGenesis.BaseFee = sdk.NewInt(feemarketGenesis.Params.InitialBaseFee)
+
 	app := simapp.Setup(false, feemarketGenesis)
 	ctx := app.BaseApp.NewContext(false, tmproto.Header{})
 
@@ -50,7 +49,7 @@ func TestEpochsInitGenesis(t *testing.T) {
 	feemarketGenesis := feemarkettypes.DefaultGenesisState()
 	feemarketGenesis.Params.EnableHeight = 1
 	feemarketGenesis.Params.NoBaseFee = false
-	feemarketGenesis.BaseFee = sdk.NewInt(feemarketGenesis.Params.InitialBaseFee)
+
 	app := simapp.Setup(false, feemarketGenesis)
 	ctx := app.BaseApp.NewContext(false, tmproto.Header{})
 
@@ -61,7 +60,7 @@ func TestEpochsInitGenesis(t *testing.T) {
 		app.EpochsKeeper.DeleteEpochInfo(ctx, epochInfo.Identifier)
 	}
 
-	now := time.Now()
+	now := time.Now().UTC()
 	ctx = ctx.WithBlockHeight(1)
 	ctx = ctx.WithBlockTime(now)
 
@@ -88,7 +87,7 @@ func TestEpochsInitGenesis(t *testing.T) {
 			},
 		},
 	}
-	require.EqualError(t, genesisState.Validate(), "epoch identifier should be unique")
+	require.EqualError(t, genesisState.Validate(), "duplicated epoch entry monthly")
 
 	genesisState = types.GenesisState{
 		Epochs: []types.EpochInfo{
