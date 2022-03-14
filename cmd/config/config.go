@@ -1,4 +1,4 @@
-package types
+package config
 
 import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
@@ -26,9 +26,15 @@ const (
 
 const (
 	// DisplayDenom defines the denomination displayed to users in client applications.
+<<<<<<< HEAD
 	DisplayDenom = "hpx"
 
 	BaseDenom = "ahpx"
+=======
+	DisplayDenom = "evmos"
+	// BaseDenom defines to the default denomination used in Evmos (staking, EVM, governance, etc.)
+	BaseDenom = "aevmos"
+>>>>>>> tharsis/release/v2.0.x
 )
 
 // SetBech32Prefixes sets the global prefixes to be used when serializing addresses and public keys to Bech32 strings.
@@ -47,7 +53,6 @@ func SetBip44CoinType(config *sdk.Config) {
 
 // RegisterDenoms registers the base and display denominations to the SDK.
 func RegisterDenoms() {
-	// TODO: rename
 	if err := sdk.RegisterDenom(DisplayDenom, sdk.OneDec()); err != nil {
 		panic(err)
 	}

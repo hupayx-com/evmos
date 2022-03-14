@@ -31,10 +31,13 @@ docs-tools-stamp
 proto-tools-stamp
 golangci-lint
 keyring_test_cosmos
-./**/node_modules
 ./**/dist
 secret.yml
 artifacts/*
+<<<<<<< HEAD
+=======
+tmp-swagger-gen
+>>>>>>> tharsis/release/v2.0.x
 # vue/
 
 # Local docker volume mappings
@@ -71,5 +74,13 @@ dependency-graph.png
 *.abi
 
 # Node.js
+<<<<<<< HEAD
 tests/**/node_modules/*
 tests-solidity/**/node_modules/*
+=======
+**/node_modules
+
+
+# OpenZeppelin contracts
+contracts/@openzeppelin/*
+>>>>>>> tharsis/release/v2.0.x

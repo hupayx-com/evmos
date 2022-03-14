@@ -55,18 +55,24 @@ module.exports = {
       denom: 'Evmos',
       ticker: 'EVMOS',
       binary: 'evmosd',
-      testnet_denom: 'Photon',
-      testnet_ticker: 'PHOTON',
-      rpc_url: 'http://localhost:8545/',
-      rpc_url_testnet: 'https://ethereum.rpc.evmos.dev',
+      testnet_denom: 'tEvmos',
+      testnet_ticker: 'tEVMOS',
+      rpc_url: 'https://eth.bd.evmos.org:8545',
+      rpc_url_testnet: 'https://eth.bd.evmos.dev:8545',
       rpc_url_local: 'http://localhost:8545/',
       chain_id: '9001',
       testnet_chain_id: '9000',
+<<<<<<< HEAD
       latest_version: 'v0.4.0',
+=======
+      latest_version: 'v1.1.0',
+>>>>>>> tharsis/release/v2.0.x
       version_number: '1',
-      testnet_version_number: '2',
-      block_explorer_url: 'https://evm.evmos.org',
-      cosmos_block_explorer_url: 'https://explorer.evmos.org',
+      testnet_version_number: '3',
+      testnet_evm_explorer_url: 'https://evm.evmos.dev',
+      evm_explorer_url: 'https://evm.evmos.org',
+      testnet_cosmos_explorer_url: 'https://explorer.evmos.dev/',
+      cosmos_explorer_url: 'https://www.mintscan.io/evmos',
     },
     logo: {
       src: '/evmos-black.svg',
@@ -157,6 +163,31 @@ module.exports = {
             },
           ]
         },
+        // {
+        //   title: 'Clients',
+        //   children: [
+        //     {
+        //       title: 'APIs',
+        //       directory: false,
+        //       path: '/clients/apis'
+        //     },
+        //     {
+        //       title: 'Evmosjs',
+        //       directory: false,
+        //       path: '/clients/evmosjs'
+        //     },
+        //   ]
+        // },
+        {
+          title: 'Mainnet',
+          children: [
+            {
+              title: 'Join Mainnet',
+              directory: false,
+              path: '/mainnet/join'
+            },
+          ]
+        },
         {
           title: 'Testnet',
           children: [
@@ -193,28 +224,49 @@ module.exports = {
               path: '/tools/explorers'
             },
             {
+<<<<<<< HEAD
               title: 'Evmos (EVM)',
+=======
+              title: 'Blockscout (EVM)',
+>>>>>>> tharsis/release/v2.0.x
               path: 'https://evm.evmos.org'
             },
             {
-              title: 'Evmos (Cosmos)',
-              path: 'https://explorer.evmos.org'
+              title: 'Mintscan (Cosmos)',
+              path: 'https://www.mintscan.io/evmos/'
             },
+          ]
+        },
+        {
+          title: 'Ecosystem',
+          children: [
+            {
+              title: 'Awesome Evmos',
+              path: 'https://github.com/tharsis/awesome'
+            },
+            {
+              title: 'Evmos Space',
+              path: 'https://evmos.space/'
+            }
           ]
         },
         {
           title: 'Resources',
           children: [
             {
-              title: 'Evmos API Reference',
+              title: 'Evmos Go API',
               path: 'https://pkg.go.dev/github.com/tharsis/evmos'
             },
             {
-              title: 'Ethermint Library API Reference',
+              title: 'Ethermint Library Go API',
               path: 'https://pkg.go.dev/github.com/tharsis/ethermint'
             },
             {
-              title: 'JSON-RPC API Reference',
+              title: 'Evmos gRPC Gateway API',
+              path: 'https://api.evmos.dev/'
+            },
+            {
+              title: 'JSON-RPC API',
               path: '/api/json-rpc/endpoints'
             }
           ]
@@ -226,13 +278,13 @@ module.exports = {
       chat: {
         title: 'Developer Chat',
         text: 'Chat with Evmos developers on Discord.',
-        url: 'https://discord.gg/trje9XuAmy',
+        url: 'https://discord.gg/evmos',
         bg: 'linear-gradient(103.75deg, #1B1E36 0%, #22253F 100%)'
       },
       forum: {
         title: 'Evmos Developer Forum',
         text: 'Join the Evmos Developer Forum to learn more.',
-        url: 'https://forum.cosmos.network/c/ethermint',
+        url: 'https://forum.cosmos.network/c/ethermint', // TODO: replace with commonwealth link
         bg: 'linear-gradient(221.79deg, #3D6B99 -1.08%, #336699 95.88%)',
         logo: 'ethereum-white'
       },
@@ -291,12 +343,8 @@ module.exports = {
         title: 'Community',
         children: [{
           title: 'Evmos Community',
-          url: 'https://discord.gg/trje9XuAmy'
+          url: 'https://discord.gg/evmos'
         },
-        {
-          title: 'Evmos Forum',
-          url: 'https://forum.cosmos.network/c/ethermint'
-        }
         ]
       },
       {

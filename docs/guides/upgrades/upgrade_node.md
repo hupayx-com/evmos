@@ -2,15 +2,19 @@
 order: 1
 -->
 
-# Upgrade Node
+# Handling Upgrades
 
-Learn how to upgrade your full node to the latest software version {synopsis}
+Learn how to upgrade your full nodes and validator nodes to the latest software version {synopsis}
 
 With every new software release, we strongly recommend validators to perform a software upgrade, in order to prevent [double signing or halting the chain during consensus](https://docs.tendermint.com/master/spec/consensus/signing.html#double-signing).
 
 You can upgrade your node by 1) upgrading your software version and 2) upgrading your node to that version. In this guide, you can find out how to automatically upgrade your node with Cosmovisor or perform the update manually.
 
+<<<<<<< HEAD
 ## Software Upgrade
+=======
+## Updating the `evmosd` binary
+>>>>>>> tharsis/release/v2.0.x
 
 These instructions are for full nodes that have ran on previous versions of and would like to upgrade to the latest testnet.
 
@@ -44,7 +48,11 @@ go: go version go1.17 darwin/amd64
 
 If the software version does not match, then please check your $PATH to ensure the correct evmosd is running.
 
+<<<<<<< HEAD
 ## Upgrade Node
+=======
+## Upgrading your Validator
+>>>>>>> tharsis/release/v2.0.x
 
 We highly recommend validators use Cosmovisor to run their nodes. This will make low-downtime upgrades smoother, as validators don't have to manually upgrade binaries during the upgrade. Instead users can preinstall new binaries, and cosmovisor will automatically update them based on on-chain Software Upgrade proposals.
 
@@ -61,7 +69,11 @@ If you choose to use Cosmovisor, please continue with these instructions. If you
 To get started with [Cosmovisor](https://github.com/cosmos/cosmos-sdk/tree/master/cosmovisor) first download it
 
 ```bash
+<<<<<<< HEAD
 go get github.com/cosmos/cosmos-sdk/cosmovisor/cmd/cosmovisor
+=======
+go install github.com/cosmos/cosmos-sdk/cosmovisor/cmd/cosmovisor@v1.0.0
+>>>>>>> tharsis/release/v2.0.x
 ```
 
 Set up the Cosmovisor environment variables. We recommend setting these in your `.profile` so it is automatically set in every session.
@@ -70,6 +82,7 @@ Set up the Cosmovisor environment variables. We recommend setting these in your 
 echo "# Setup Cosmovisor" >> ~/.profile
 echo "export DAEMON_NAME=evmosd" >> ~/.profile
 echo "export DAEMON_HOME=$HOME/.evmosd" >> ~/.profile
+<<<<<<< HEAD
 echo 'export PATH="$DAEMON_HOME/cosmovisor/current/bin:$PATH"' >> ~/.profile
 source ~/.profile
 ```
@@ -88,15 +101,45 @@ cosmovisor version
 ```
 
 #### Preparing an Upgrade
+=======
+source ~/.profile
+```
+
+After this, you must make the necessary folders for cosmosvisor in your daemon home directory (~/.evmosd) and copy over the current binary.
+
+```bash
+mkdir -p ~/.evmosd/cosmovisor
+mkdir -p ~/.evmosd/cosmovisor/genesis
+mkdir -p ~/.evmosd/cosmovisor/genesis/bin
+mkdir -p ~/.evmosd/cosmovisor/upgrades
+
+cp $GOPATH/bin/evmosd ~/.evmosd/cosmovisor/genesis/bin
+```
+
+To check that you did this correctly, ensure your versions of cosmovisor and evmosd are the same:
+```
+cosmovisor version
+evmosd version
+```
+
+#### Generally Preparing an Upgrade
+>>>>>>> tharsis/release/v2.0.x
 
 Cosmovisor will continually poll the `$DAEMON_HOME/data/upgrade-info.json` for new upgrade instructions. When an upgrade is ready, node operators can download the new binary and place it under `$DAEMON_HOME/cosmovisor/upgrades/<name>/bin` where `<name>` is the URI-encoded name of the upgrade as specified in the upgrade module plan.
 
 It is possible to have Cosmovisor automatically download the new binary. To do this set the following environment variable.
 
 ```bash
+<<<<<<< HEAD
 export DAEMON_ALLOW_DOWNLOAD_BINARIES=true
 ```
 
+=======
+echo "export DAEMON_ALLOW_DOWNLOAD_BINARIES=true" >> ~/.profile
+```
+
+
+>>>>>>> tharsis/release/v2.0.x
 #### Download Genesis File
 
 You can now download the "genesis" file for the chain. It is pre-filled with the entire genesis state and gentxs.
@@ -197,6 +240,37 @@ You can check the status with:
 systemctl status evmosd
 ```
 
+<<<<<<< HEAD
+=======
+#### Update Cosmosvisor to V2
+
+If you're not yet on the latest V1 release (`v1.1.2`) please upgrade your current version first:
+```bash
+cd $HOME/evmos
+git pull
+git checkout v1.1.2
+make build
+systemctl stop evmosd.service
+cp build/evmosd ~/.evmosd/cosmovisor/genesis/bin
+systemctl start evmosd.service
+cd $HOME
+```
+
+
+If you are on the latest V1 release (`v1.1.2`) and you want evmosd to upgrade automatically from V1 to V2, do the following steps prior to the upgrade height:
+```bash
+mkdir -p ~/.evmosd/cosmovisor/upgrades/v2/bin
+cd $HOME/evmos
+git pull
+git checkout v2.0.0
+make build
+systemctl stop evmosd.service
+cp build/evmosd ~/.evmosd/cosmovisor/upgrades/v2/bin
+systemctl start evmosd.service
+cd $HOME
+```
+
+>>>>>>> tharsis/release/v2.0.x
 ### Upgrade Manually
 
 #### Upgrade Genesis File
