@@ -12,7 +12,7 @@ require (
 	github.com/golang/protobuf v1.5.2
 	github.com/gorilla/mux v1.8.0
 	github.com/grpc-ecosystem/grpc-gateway v1.16.0
-    github.com/hupayx-com/carrotMember v0.0.2
+	github.com/hupayx-com/carrotMember v0.0.2
 	github.com/onsi/ginkgo/v2 v2.1.3
 	github.com/onsi/gomega v1.18.1
 	github.com/pkg/errors v0.9.1
@@ -31,10 +31,7 @@ require (
 
 require github.com/rivo/uniseg v0.2.0 // indirect
 
-require (
-	github.com/tendermint/spm v0.1.8
-	github.com/tendermint/starport v0.19.2
-)
+require github.com/tendermint/spm v0.1.8
 
 require (
 	filippo.io/edwards25519 v1.0.0-beta.2 // indirect
@@ -54,7 +51,6 @@ require (
 	github.com/cespare/xxhash/v2 v2.1.2 // indirect
 	github.com/coinbase/rosetta-sdk-go v0.7.0 // indirect
 	github.com/confio/ics23/go v0.7.0 // indirect
-	github.com/cosmos/btcutil v1.0.4 // indirect
 	github.com/cosmos/gorocksdb v1.2.0 // indirect
 	github.com/cosmos/iavl v0.17.3 // indirect
 	github.com/cosmos/ledger-cosmos-go v0.11.1 // indirect
@@ -69,6 +65,7 @@ require (
 	github.com/dustin/go-humanize v1.0.1-0.20200219035652-afde56e7acac // indirect
 	github.com/dvsekhvalnov/jose2go v0.0.0-20200901110807-248326c1351b // indirect
 	github.com/edsrzf/mmap-go v1.0.0 // indirect
+	github.com/enigmampc/btcutil v1.0.3-0.20200723161021-e2fb6adb2a25 // indirect
 	github.com/felixge/httpsnoop v1.0.1 // indirect
 	github.com/fsnotify/fsnotify v1.5.1 // indirect
 	github.com/gballet/go-libpcsclite v0.0.0-20190607065134-2772fd86a8ff // indirect
@@ -145,10 +142,10 @@ require (
 	github.com/zondax/hid v0.9.0 // indirect
 	go.etcd.io/bbolt v1.3.6 // indirect
 	golang.org/x/crypto v0.0.0-20220214200702-86341886e292 // indirect
-	golang.org/x/net v0.0.0-20211208012354-db4efeb81f4b // indirect
+	golang.org/x/net v0.0.0-20220127200216-cd36cc0744dd // indirect
 	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c // indirect
 	golang.org/x/sys v0.0.0-20220114195835-da31bd327af9 // indirect
-	golang.org/x/term v0.0.0-20201126162022-7de9c90e9dd1 // indirect
+	golang.org/x/term v0.0.0-20210927222741-03fcf44c2211 // indirect
 	golang.org/x/text v0.3.7 // indirect
 	gopkg.in/ini.v1 v1.66.2 // indirect
 	gopkg.in/natefinch/npipe.v2 v2.0.0-20160621034901-c1b8fa8bdcce // indirect
@@ -160,7 +157,7 @@ require (
 
 replace (
 	github.com/99designs/keyring => github.com/cosmos/keyring v1.1.7-0.20210622111912-ef00f8ac3d76
+	github.com/cosmos/cosmos-sdk => github.com/hupayx-com/cosmos-sdk v0.44.9-hupayx
 	github.com/gogo/protobuf => github.com/regen-network/protobuf v1.3.3-alpha.regen.1
 	google.golang.org/grpc => google.golang.org/grpc v1.33.2
-	github.com/cosmos/cosmos-sdk => github.com/hupayx-com/cosmos-sdk v0.44.9-hupayx
 )

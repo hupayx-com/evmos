@@ -62,11 +62,7 @@ module.exports = {
       rpc_url_local: 'http://localhost:8545/',
       chain_id: '9001',
       testnet_chain_id: '9000',
-<<<<<<< HEAD
-      latest_version: 'v0.4.0',
-=======
       latest_version: 'v1.1.0',
->>>>>>> tharsis/release/v2.0.x
       version_number: '1',
       testnet_version_number: '3',
       testnet_evm_explorer_url: 'https://evm.evmos.dev',
@@ -224,11 +220,7 @@ module.exports = {
               path: '/tools/explorers'
             },
             {
-<<<<<<< HEAD
-              title: 'Evmos (EVM)',
-=======
               title: 'Blockscout (EVM)',
->>>>>>> tharsis/release/v2.0.x
               path: 'https://evm.evmos.org'
             },
             {
