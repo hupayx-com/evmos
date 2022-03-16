@@ -17,6 +17,11 @@ rm -rf ~/.evmosd*
 
 make install
 
+USER_MNEMONIC="birth theory violin october learn bitter arch ozone game blush rabbit force mother enter clarify pride chunk dinner assault split dune basket clump eye"
+
+# if $KEY exists it should be deleted
+echo $USER_MNEMONIC | evmosd keys add $KEY --recover --keyring-backend $KEYRING --algo $KEYALGO
+
 evmosd config keyring-backend $KEYRING
 evmosd config chain-id $CHAINID
 
@@ -32,6 +37,9 @@ cat $HOME/.evmosd/config/genesis.json | jq '.app_state["crisis"]["constant_fee"]
 cat $HOME/.evmosd/config/genesis.json | jq '.app_state["gov"]["deposit_params"]["min_deposit"][0]["denom"]="aevmos"' > $HOME/.evmosd/config/tmp_genesis.json && mv $HOME/.evmosd/config/tmp_genesis.json $HOME/.evmosd/config/genesis.json
 cat $HOME/.evmosd/config/genesis.json | jq '.app_state["evm"]["params"]["evm_denom"]="aevmos"' > $HOME/.evmosd/config/tmp_genesis.json && mv $HOME/.evmosd/config/tmp_genesis.json $HOME/.evmosd/config/genesis.json
 cat $HOME/.evmosd/config/genesis.json | jq '.app_state["inflation"]["params"]["mint_denom"]="aevmos"' > $HOME/.evmosd/config/tmp_genesis.json && mv $HOME/.evmosd/config/tmp_genesis.json $HOME/.evmosd/config/genesis.json
+
+cat $HOME/.evmosd/config/genesis.json | jq '.app_state["feemarket"]["params"]["base_fee"]="1000000000000000"' > $HOME/.evmosd/config/tmp_genesis.json && mv $HOME/.evmosd/config/tmp_genesis.json $HOME/.evmosd/config/genesis.json
+cat $HOME/.evmosd/config/genesis.json | jq '.app_state["feemarket"]["params"]["base_fee_change_denominator"]="8"' > $HOME/.evmosd/config/tmp_genesis.json && mv $HOME/.evmosd/config/tmp_genesis.json $HOME/.evmosd/config/genesis.json
 
 # increase block time (?)
 cat $HOME/.evmosd/config/genesis.json | jq '.consensus_params["block"]["time_iota_ms"]="30000"' > $HOME/.evmosd/config/tmp_genesis.json && mv $HOME/.evmosd/config/tmp_genesis.json $HOME/.evmosd/config/genesis.json
@@ -104,9 +112,12 @@ evmosd collect-gentxs
 # Run this to ensure everything worked and that the genesis file is setup correctly
 evmosd validate-genesis
 
+# cosmos validator 기준 0.1evmos
+min_gas_prices="500000000000aevmos"
+
 if [[ $1 == "pending" ]]; then
   echo "pending mode is on, please wait for the first block committed."
 fi
 
 # Start the node (remove the --pruning=nothing flag if historical queries are not needed)
-evmosd start --pruning=nothing $TRACE --log_level $LOGLEVEL --minimum-gas-prices=0.0001aevmos --json-rpc.api eth,txpool,personal,net,debug,web3
+evmosd start --pruning=nothing $TRACE --log_level $LOGLEVEL --minimum-gas-prices=$min_gas_prices --json-rpc.api eth,txpool,personal,net,debug,web3
