@@ -132,14 +132,17 @@ fi
 # Allocate genesis accounts (cosmos formatted addresses)
 evmosd add-genesis-account $KEY 90000000000000000000000000ahpx --keyring-backend $KEYRING
 
-evmosd add-genesis-account $KEY 1000000000000000000000000ahpx --keyring-backend $KEYRING
-evmosd add-genesis-account $KEY 1000000000000000000000000ahpx --keyring-backend $KEYRING
-evmosd add-genesis-account $KEY 1000000000000000000000000ahpx --keyring-backend $KEYRING
-evmosd add-genesis-account $KEY 1000000000000000000000000ahpx --keyring-backend $KEYRING
-evmosd add-genesis-account $KEY 1000000000000000000000000ahpx --keyring-backend $KEYRING
-evmosd add-genesis-account $KEY 1000000000000000000000000ahpx --keyring-backend $KEYRING
-evmosd add-genesis-account $KEY 1000000000000000000000000ahpx --keyring-backend $KEYRING
-evmosd add-genesis-account $KEY 1000000000000000000000000ahpx --keyring-backend $KEYRING
+evmosd add-genesis-account test1  100000000000000000000000000ahpx --keyring-backend $KEYRING
+evmosd add-genesis-account test2  100000000000000000000000000ahpx --keyring-backend $KEYRING
+evmosd add-genesis-account test3  100000000000000000000000000ahpx --keyring-backend $KEYRING
+evmosd add-genesis-account test4  100000000000000000000000000ahpx --keyring-backend $KEYRING
+evmosd add-genesis-account test5  100000000000000000000000000ahpx --keyring-backend $KEYRING
+evmosd add-genesis-account test6  100000000000000000000000000ahpx --keyring-backend $KEYRING
+evmosd add-genesis-account test7  100000000000000000000000000ahpx --keyring-backend $KEYRING
+evmosd add-genesis-account test8  100000000000000000000000000ahpx --keyring-backend $KEYRING
+evmosd add-genesis-account test9  100000000000000000000000000ahpx --keyring-backend $KEYRING
+evmosd add-genesis-account test10 100000000000000000000000000ahpx --keyring-backend $KEYRING
+
 
                                 
 # Update total supply with claim values
