@@ -1,4 +1,5 @@
 
+#!/bin/bash
 KEY="mykey"
 CHAINID="evmos_9000-1"
 MONIKER="localtestnet"
@@ -67,15 +68,20 @@ cat $HOME/.evmosd/config/genesis.json | jq '.app_state["gov"]["voting_params"]["
 cat $HOME/.evmosd/config/genesis.json | jq '.app_state["evm"]["params"]["evm_denom"]="ahpx"' > $HOME/.evmosd/config/tmp_genesis.json && mv $HOME/.evmosd/config/tmp_genesis.json $HOME/.evmosd/config/genesis.json
 cat $HOME/.evmosd/config/genesis.json | jq '.app_state["inflation"]["params"]["mint_denom"]="ahpx"' > $HOME/.evmosd/config/tmp_genesis.json && mv $HOME/.evmosd/config/tmp_genesis.json $HOME/.evmosd/config/genesis.json
 
-# 기본 요금(GWEI)
+# 기본 요금(GWEI) 211642 : 0.5hpx(ETH-RPC)
 cat $HOME/.evmosd/config/genesis.json | jq '.app_state["feemarket"]["params"]["base_fee"]="21164200000000"' > $HOME/.evmosd/config/tmp_genesis.json && mv $HOME/.evmosd/config/tmp_genesis.json $HOME/.evmosd/config/genesis.json
 cat $HOME/.evmosd/config/genesis.json | jq '.app_state["feemarket"]["params"]["base_fee_change_denominator"]="8"' > $HOME/.evmosd/config/tmp_genesis.json && mv $HOME/.evmosd/config/tmp_genesis.json $HOME/.evmosd/config/genesis.json
 
 # inflation 0
 cat $HOME/.evmosd/config/genesis.json | jq '.app_state["inflation"]["params"]["mint_denom"]="ahpx"' > $HOME/.evmosd/config/tmp_genesis.json && mv $HOME/.evmosd/config/tmp_genesis.json $HOME/.evmosd/config/genesis.json
-cat $HOME/.evmosd/config/genesis.json | jq '.app_state["inflation"]["params"]["inflation_distribution"]["staking_rewards"]="0"' > $HOME/.evmosd/config/tmp_genesis.json && mv $HOME/.evmosd/config/tmp_genesis.json $HOME/.evmosd/config/genesis.json
+
+cat $HOME/.evmosd/config/genesis.json | jq '.app_state["inflation"]["params"]["inflation_distribution"]["staking_rewards"]="1"' > $HOME/.evmosd/config/tmp_genesis.json && mv $HOME/.evmosd/config/tmp_genesis.json $HOME/.evmosd/config/genesis.json
 cat $HOME/.evmosd/config/genesis.json | jq '.app_state["inflation"]["params"]["inflation_distribution"]["usage_incentives"]="0"' > $HOME/.evmosd/config/tmp_genesis.json && mv $HOME/.evmosd/config/tmp_genesis.json $HOME/.evmosd/config/genesis.json
 cat $HOME/.evmosd/config/genesis.json | jq '.app_state["inflation"]["params"]["inflation_distribution"]["community_pool"]="0"' > $HOME/.evmosd/config/tmp_genesis.json && mv $HOME/.evmosd/config/tmp_genesis.json $HOME/.evmosd/config/genesis.json
+
+cat $HOME/.evmosd/config/genesis.json | jq '.app_state["inflation"]["params"]["exponential_calculation"]["a"]="0"' > $HOME/.evmosd/config/tmp_genesis.json && mv $HOME/.evmosd/config/tmp_genesis.json $HOME/.evmosd/config/genesis.json
+cat $HOME/.evmosd/config/genesis.json | jq '.app_state["inflation"]["params"]["exponential_calculation"]["r"]="0"' > $HOME/.evmosd/config/tmp_genesis.json && mv $HOME/.evmosd/config/tmp_genesis.json $HOME/.evmosd/config/genesis.json
+cat $HOME/.evmosd/config/genesis.json | jq '.app_state["inflation"]["params"]["exponential_calculation"]["c"]="0"' > $HOME/.evmosd/config/tmp_genesis.json && mv $HOME/.evmosd/config/tmp_genesis.json $HOME/.evmosd/config/genesis.json
 
 # increase block time (?)
 cat $HOME/.evmosd/config/genesis.json | jq '.consensus_params["block"]["time_iota_ms"]="30000"' > $HOME/.evmosd/config/tmp_genesis.json && mv $HOME/.evmosd/config/tmp_genesis.json $HOME/.evmosd/config/genesis.json
@@ -99,24 +105,24 @@ cat $HOME/.evmosd/config/genesis.json | jq '.consensus_params["block"]["max_gas"
 #cat $HOME/.evmosd/config/genesis.json | jq -r --arg amount_to_claim "$amount_to_claim" '.app_state["bank"]["balances"] += [{"address":"evmos15cvq3ljql6utxseh0zau9m8ve2j8erz89m5wkz","coins":[{"denom":"aevmos", "amount":$amount_to_claim}]}]' > $HOME/.evmosd/config/tmp_genesis.json && mv $HOME/.evmosd/config/tmp_genesis.json $HOME/.evmosd/config/genesis.json
 
 # disable produce empty block
-if [[ "$OSTYPE" == "darwin"* ]]; then
-    sed -i '' 's/create_empty_blocks = true/create_empty_blocks = false/g' $HOME/.evmosd/config/config.toml
-  else
-    sed -i 's/create_empty_blocks = true/create_empty_blocks = false/g' $HOME/.evmosd/config/config.toml
-fi
+# if [[ "$OSTYPE" == "darwin"* ]]; then
+#     sed -i '' 's/create_empty_blocks = true/create_empty_blocks = false/g' $HOME/.evmosd/config/config.toml
+#   else
+sed -i 's/create_empty_blocks = true/create_empty_blocks = false/g' $HOME/.evmosd/config/config.toml
+# fi
 
-if [[ $1 == "pending" ]]; then
-  if [[ "$OSTYPE" == "darwin"* ]]; then
-      sed -i '' 's/create_empty_blocks_interval = "0s"/create_empty_blocks_interval = "30s"/g' $HOME/.evmosd/config/config.toml
-      sed -i '' 's/timeout_propose = "3s"/timeout_propose = "30s"/g' $HOME/.evmosd/config/config.toml
-      sed -i '' 's/timeout_propose_delta = "500ms"/timeout_propose_delta = "5s"/g' $HOME/.evmosd/config/config.toml
-      sed -i '' 's/timeout_prevote = "1s"/timeout_prevote = "10s"/g' $HOME/.evmosd/config/config.toml
-      sed -i '' 's/timeout_prevote_delta = "500ms"/timeout_prevote_delta = "5s"/g' $HOME/.evmosd/config/config.toml
-      sed -i '' 's/timeout_precommit = "1s"/timeout_precommit = "10s"/g' $HOME/.evmosd/config/config.toml
-      sed -i '' 's/timeout_precommit_delta = "500ms"/timeout_precommit_delta = "5s"/g' $HOME/.evmosd/config/config.toml
-      sed -i '' 's/timeout_commit = "5s"/timeout_commit = "150s"/g' $HOME/.evmosd/config/config.toml
-      sed -i '' 's/timeout_broadcast_tx_commit = "10s"/timeout_broadcast_tx_commit = "150s"/g' $HOME/.evmosd/config/config.toml
-  else
+# if [[ $1 == "pending" ]]; then
+#   if [[ "$OSTYPE" == "darwin"* ]]; then
+#       sed -i '' 's/create_empty_blocks_interval = "0s"/create_empty_blocks_interval = "30s"/g' $HOME/.evmosd/config/config.toml
+#       sed -i '' 's/timeout_propose = "3s"/timeout_propose = "30s"/g' $HOME/.evmosd/config/config.toml
+#       sed -i '' 's/timeout_propose_delta = "500ms"/timeout_propose_delta = "5s"/g' $HOME/.evmosd/config/config.toml
+#       sed -i '' 's/timeout_prevote = "1s"/timeout_prevote = "10s"/g' $HOME/.evmosd/config/config.toml
+#       sed -i '' 's/timeout_prevote_delta = "500ms"/timeout_prevote_delta = "5s"/g' $HOME/.evmosd/config/config.toml
+#       sed -i '' 's/timeout_precommit = "1s"/timeout_precommit = "10s"/g' $HOME/.evmosd/config/config.toml
+#       sed -i '' 's/timeout_precommit_delta = "500ms"/timeout_precommit_delta = "5s"/g' $HOME/.evmosd/config/config.toml
+#       sed -i '' 's/timeout_commit = "5s"/timeout_commit = "150s"/g' $HOME/.evmosd/config/config.toml
+#       sed -i '' 's/timeout_broadcast_tx_commit = "10s"/timeout_broadcast_tx_commit = "150s"/g' $HOME/.evmosd/config/config.toml
+#   else
       sed -i 's/create_empty_blocks_interval = "0s"/create_empty_blocks_interval = "30s"/g' $HOME/.evmosd/config/config.toml
       sed -i 's/timeout_propose = "3s"/timeout_propose = "30s"/g' $HOME/.evmosd/config/config.toml
       sed -i 's/timeout_propose_delta = "500ms"/timeout_propose_delta = "5s"/g' $HOME/.evmosd/config/config.toml
@@ -126,8 +132,8 @@ if [[ $1 == "pending" ]]; then
       sed -i 's/timeout_precommit_delta = "500ms"/timeout_precommit_delta = "5s"/g' $HOME/.evmosd/config/config.toml
       sed -i 's/timeout_commit = "5s"/timeout_commit = "150s"/g' $HOME/.evmosd/config/config.toml
       sed -i 's/timeout_broadcast_tx_commit = "10s"/timeout_broadcast_tx_commit = "150s"/g' $HOME/.evmosd/config/config.toml
-  fi
-fi
+#   fi
+# fi
 
 # Allocate genesis accounts (cosmos formatted addresses)
 evmosd add-genesis-account $KEY 90000000000000000000000000ahpx --keyring-backend $KEYRING
@@ -168,5 +174,20 @@ if [[ $1 == "pending" ]]; then
   echo "pending mode is on, please wait for the first block committed."
 fi
 
+sed -i 's/127.0.0.1:26657/0.0.0.0:26657/g' $HOME/.evmosd/config/config.toml
+sed -i 's/log_format = "plain"/log_format = "json"/g' $HOME/.evmosd/config/config.toml
+
+sed -i '108s/enable = false/enable = true/' $HOME/.evmosd/config/app.toml
+sed -i '111s/swagger = false/swagger = true/' $HOME/.evmosd/config/app.toml
+
 # Start the node (remove the --pruning=nothing flag if historical queries are not needed)
-evmosd start --pruning=nothing $TRACE --log_level $LOGLEVEL --minimum-gas-prices=$min_gas_prices --json-rpc.api eth,txpool,personal,net,debug,web3
+# evmosd start --pruning=nothing $TRACE --log_level $LOGLEVEL --minimum-gas-prices=$min_gas_prices --json-rpc.api eth,txpool,personal,net,debug,web3
+
+# docker build --tag evmos:hupayx-2.0.1 .
+# docker run -d -p 26656:26656 -p 26657:26657 -p 1317:1317 -p 9090:9090 -p 8545:8545 --name evmos  evmos:hupayx-2.0.1 evmosd start --minimum-gas-prices=500000000000ahpx --json-rpc.api eth,txpool,personal,net,debug,web3
+
+# 
+
+
+
+
