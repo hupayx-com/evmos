@@ -156,5 +156,9 @@ replace (
 	github.com/cosmos/cosmos-sdk => github.com/tharsis/cosmos-sdk v0.45.2-0.20220306021140-2de5a020cedb
 	github.com/gogo/protobuf => github.com/regen-network/protobuf v1.3.3-alpha.regen.1
 	google.golang.org/grpc => google.golang.org/grpc v1.33.2
+<<<<<<< HEAD
     github.com/tharsis/ethermint  => github.com/hupayx-com/ethermint v0.12.0-hupayx
+=======
+    github.com/tharsis/ethermint  => github.com/hupayx-com/ethermint v0.11.0-hupayx
+>>>>>>> 008d2b0a5829a0185bd7d53c1038eca86cdf7402
 )
