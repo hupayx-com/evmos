@@ -133,6 +133,10 @@ import (
 	"github.com/tharsis/evmos/v3/x/vesting"
 	vestingkeeper "github.com/tharsis/evmos/v3/x/vesting/keeper"
 	vestingtypes "github.com/tharsis/evmos/v3/x/vesting/types"
+
+	multicoinsendmodule "github.com/hupayx-com/multiCoinSend/x/multicoinsend"
+	multicoinsendmodulekeeper "github.com/hupayx-com/multiCoinSend/x/multicoinsend/keeper"
+	multicoinsendmoduletypes "github.com/hupayx-com/multiCoinSend/x/multicoinsend/types"
 )
 
 func init() {
@@ -196,6 +200,7 @@ var (
 		epochs.AppModuleBasic{},
 		claims.AppModuleBasic{},
 		recovery.AppModuleBasic{},
+		multicoinsendmodule.AppModuleBasic{},
 	)
 
 	// module account permissions
@@ -211,6 +216,8 @@ var (
 		erc20types.ModuleName:          {authtypes.Minter, authtypes.Burner},
 		claimstypes.ModuleName:         nil,
 		incentivestypes.ModuleName:     {authtypes.Minter, authtypes.Burner},
+
+		multicoinsendmoduletypes.ModuleName: {authtypes.Minter, authtypes.Burner},
 	}
 
 	// module accounts that are allowed to receive tokens
@@ -264,6 +271,8 @@ type Evmos struct {
 	// make scoped keepers public for test purposes
 	ScopedIBCKeeper      capabilitykeeper.ScopedKeeper
 	ScopedTransferKeeper capabilitykeeper.ScopedKeeper
+
+	MulticoinsendKeeper multicoinsendmodulekeeper.Keeper
 
 	// Ethermint keepers
 	EvmKeeper       *evmkeeper.Keeper
@@ -333,6 +342,7 @@ func NewEvmos(
 		// evmos keys
 		inflationtypes.StoreKey, erc20types.StoreKey, incentivestypes.StoreKey,
 		epochstypes.StoreKey, claimstypes.StoreKey, vestingtypes.StoreKey,
+		multicoinsendmoduletypes.StoreKey,
 	)
 
 	// Add the EVM transient store key
@@ -509,6 +519,15 @@ func NewEvmos(
 		app.ClaimsKeeper,
 	)
 
+	app.MulticoinsendKeeper = *multicoinsendmodulekeeper.NewKeeper(
+		appCodec,
+		keys[multicoinsendmoduletypes.StoreKey],
+		keys[multicoinsendmoduletypes.MemStoreKey],
+		app.BankKeeper,
+		app.GetSubspace(multicoinsendmoduletypes.ModuleName),
+	)
+	multicoinsendModule := multicoinsendmodule.NewAppModule(appCodec, app.MulticoinsendKeeper, app.AccountKeeper, app.BankKeeper)
+
 	// Set the ICS4 wrappers for claims and recovery middlewares
 	app.RecoveryKeeper.SetICS4Wrapper(app.IBCKeeper.ChannelKeeper)
 	app.ClaimsKeeper.SetICS4Wrapper(app.RecoveryKeeper)
@@ -582,6 +601,7 @@ func NewEvmos(
 		claims.NewAppModule(appCodec, *app.ClaimsKeeper),
 		vesting.NewAppModule(app.VestingKeeper, app.AccountKeeper, app.BankKeeper, app.StakingKeeper),
 		recovery.NewAppModule(*app.RecoveryKeeper),
+		multicoinsendModule,
 	)
 
 	// During begin block slashing happens after distr.BeginBlocker so that
@@ -618,6 +638,7 @@ func NewEvmos(
 		claimstypes.ModuleName,
 		incentivestypes.ModuleName,
 		recoverytypes.ModuleName,
+		multicoinsendmoduletypes.ModuleName,
 	)
 
 	// NOTE: fee market module must go last in order to retrieve the block gas used.
@@ -650,6 +671,7 @@ func NewEvmos(
 		erc20types.ModuleName,
 		incentivestypes.ModuleName,
 		recoverytypes.ModuleName,
+		multicoinsendmoduletypes.ModuleName,
 	)
 
 	// NOTE: The genutils module must occur after staking so that pools are
@@ -687,6 +709,7 @@ func NewEvmos(
 		recoverytypes.ModuleName,
 		// NOTE: crisis module must go at the end to check for invariants on each module
 		crisistypes.ModuleName,
+		multicoinsendmoduletypes.ModuleName,
 	)
 
 	app.mm.RegisterInvariants(&app.CrisisKeeper)
@@ -1002,6 +1025,7 @@ func initParamsKeeper(
 	paramsKeeper.Subspace(claimstypes.ModuleName)
 	paramsKeeper.Subspace(incentivestypes.ModuleName)
 	paramsKeeper.Subspace(recoverytypes.ModuleName)
+	paramsKeeper.Subspace(multicoinsendmoduletypes.ModuleName)
 	return paramsKeeper
 }
 

@@ -20,4 +20,7 @@ COPY --from=build-env /go/src/github.com/tharsis/evmos/build/evmosd /usr/bin/evm
 
 EXPOSE 26656 26657 1317 9090
 
-CMD ["evmosd"]
+# RUN chmod +x /root/init.sh
+# RUN /root/init.sh
+
+CMD ["evmosd" "start"]

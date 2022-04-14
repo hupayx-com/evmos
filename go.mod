@@ -26,6 +26,7 @@ require (
 	google.golang.org/genproto v0.0.0-20220414192740-2d67ff6cf2b4
 	google.golang.org/grpc v1.45.0
 	google.golang.org/protobuf v1.28.0
+	github.com/hupayx-com/multiCoinSend v0.0.2
 )
 
 require (
@@ -156,4 +157,6 @@ replace (
 	github.com/99designs/keyring => github.com/cosmos/keyring v1.1.7-0.20210622111912-ef00f8ac3d76
 	github.com/gogo/protobuf => github.com/regen-network/protobuf v1.3.3-alpha.regen.1
 	google.golang.org/grpc => google.golang.org/grpc v1.33.2
+    github.com/tharsis/ethermint  => github.com/hupayx-com/ethermint v0.13.0-hupayx
+	github.com/cosmos/cosmos-sdk  => github.com/hupayx-com/cosmos-sdk v0.45.3-hupayx
 )
