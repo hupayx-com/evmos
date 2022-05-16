@@ -137,6 +137,10 @@ import (
 	multicoinsendmodule "github.com/hupayx-com/multiCoinSend/x/multicoinsend"
 	multicoinsendmodulekeeper "github.com/hupayx-com/multiCoinSend/x/multicoinsend/keeper"
 	multicoinsendmoduletypes "github.com/hupayx-com/multiCoinSend/x/multicoinsend/types"
+
+	taycanswapmodule "github.com/hupayx-com/taycanSwap/x/taycanswap"
+	taycanswapmodulekeeper "github.com/hupayx-com/taycanSwap/x/taycanswap/keeper"
+	taycanswapmoduletypes "github.com/hupayx-com/taycanSwap/x/taycanswap/types"
 )
 
 func init() {
@@ -201,6 +205,7 @@ var (
 		claims.AppModuleBasic{},
 		recovery.AppModuleBasic{},
 		multicoinsendmodule.AppModuleBasic{},
+		taycanswapmodule.AppModuleBasic{},
 	)
 
 	// module account permissions
@@ -218,6 +223,7 @@ var (
 		incentivestypes.ModuleName:     {authtypes.Minter, authtypes.Burner},
 
 		multicoinsendmoduletypes.ModuleName: {authtypes.Minter, authtypes.Burner},
+		taycanswapmoduletypes.ModuleName:    {authtypes.Minter, authtypes.Burner},
 	}
 
 	// module accounts that are allowed to receive tokens
@@ -273,6 +279,7 @@ type Evmos struct {
 	ScopedTransferKeeper capabilitykeeper.ScopedKeeper
 
 	MulticoinsendKeeper multicoinsendmodulekeeper.Keeper
+	TaycanswapKeeper    taycanswapmodulekeeper.Keeper
 
 	// Ethermint keepers
 	EvmKeeper       *evmkeeper.Keeper
@@ -343,6 +350,7 @@ func NewEvmos(
 		inflationtypes.StoreKey, erc20types.StoreKey, incentivestypes.StoreKey,
 		epochstypes.StoreKey, claimstypes.StoreKey, vestingtypes.StoreKey,
 		multicoinsendmoduletypes.StoreKey,
+		taycanswapmoduletypes.StoreKey,
 	)
 
 	// Add the EVM transient store key
@@ -528,6 +536,15 @@ func NewEvmos(
 	)
 	multicoinsendModule := multicoinsendmodule.NewAppModule(appCodec, app.MulticoinsendKeeper, app.AccountKeeper, app.BankKeeper)
 
+	app.TaycanswapKeeper = *taycanswapmodulekeeper.NewKeeper(
+		appCodec,
+		keys[taycanswapmoduletypes.StoreKey],
+		keys[taycanswapmoduletypes.MemStoreKey],
+		app.BankKeeper,
+		app.GetSubspace(taycanswapmoduletypes.ModuleName),
+	)
+	taycanswapModule := taycanswapmodule.NewAppModule(appCodec, app.TaycanswapKeeper, app.AccountKeeper, app.BankKeeper)
+
 	// Set the ICS4 wrappers for claims and recovery middlewares
 	app.RecoveryKeeper.SetICS4Wrapper(app.IBCKeeper.ChannelKeeper)
 	app.ClaimsKeeper.SetICS4Wrapper(app.RecoveryKeeper)
@@ -602,6 +619,7 @@ func NewEvmos(
 		vesting.NewAppModule(app.VestingKeeper, app.AccountKeeper, app.BankKeeper, app.StakingKeeper),
 		recovery.NewAppModule(*app.RecoveryKeeper),
 		multicoinsendModule,
+		taycanswapModule,
 	)
 
 	// During begin block slashing happens after distr.BeginBlocker so that
@@ -639,6 +657,7 @@ func NewEvmos(
 		incentivestypes.ModuleName,
 		recoverytypes.ModuleName,
 		multicoinsendmoduletypes.ModuleName,
+		taycanswapmoduletypes.ModuleName,
 	)
 
 	// NOTE: fee market module must go last in order to retrieve the block gas used.
@@ -672,6 +691,7 @@ func NewEvmos(
 		incentivestypes.ModuleName,
 		recoverytypes.ModuleName,
 		multicoinsendmoduletypes.ModuleName,
+		taycanswapmoduletypes.ModuleName,
 	)
 
 	// NOTE: The genutils module must occur after staking so that pools are
@@ -710,6 +730,7 @@ func NewEvmos(
 		// NOTE: crisis module must go at the end to check for invariants on each module
 		crisistypes.ModuleName,
 		multicoinsendmoduletypes.ModuleName,
+		taycanswapmoduletypes.ModuleName,
 	)
 
 	app.mm.RegisterInvariants(&app.CrisisKeeper)
@@ -742,6 +763,7 @@ func NewEvmos(
 		evm.NewAppModule(app.EvmKeeper, app.AccountKeeper),
 		epochs.NewAppModule(appCodec, app.EpochsKeeper),
 		feemarket.NewAppModule(app.FeeMarketKeeper),
+	//	taycanswapModule,
 	)
 
 	app.sm.RegisterStoreDecoders()
@@ -1026,6 +1048,7 @@ func initParamsKeeper(
 	paramsKeeper.Subspace(incentivestypes.ModuleName)
 	paramsKeeper.Subspace(recoverytypes.ModuleName)
 	paramsKeeper.Subspace(multicoinsendmoduletypes.ModuleName)
+	paramsKeeper.Subspace(taycanswapmoduletypes.ModuleName)
 	return paramsKeeper
 }
 

@@ -12,6 +12,8 @@ require (
 	github.com/golang/protobuf v1.5.2
 	github.com/gorilla/mux v1.8.0
 	github.com/grpc-ecosystem/grpc-gateway v1.16.0
+	github.com/hupayx-com/multiCoinSend v0.0.2
+	github.com/hupayx-com/taycanSwap v0.0.1
 	github.com/onsi/ginkgo/v2 v2.1.3
 	github.com/onsi/gomega v1.19.0
 	github.com/pkg/errors v0.9.1
@@ -26,7 +28,6 @@ require (
 	google.golang.org/genproto v0.0.0-20220414192740-2d67ff6cf2b4
 	google.golang.org/grpc v1.45.0
 	google.golang.org/protobuf v1.28.0
-	github.com/hupayx-com/multiCoinSend v0.0.2
 )
 
 require (
@@ -72,7 +73,7 @@ require (
 	github.com/go-stack/stack v1.8.0 // indirect
 	github.com/godbus/dbus v0.0.0-20190726142602-4481cbc300e2 // indirect
 	github.com/gogo/gateway v1.1.0 // indirect
-	github.com/golang/glog v0.0.0-20210429001901-424d2337a529 // indirect
+	github.com/golang/glog v1.0.0 // indirect
 	github.com/golang/snappy v0.0.4 // indirect
 	github.com/google/btree v1.0.1 // indirect
 	github.com/google/orderedcode v0.0.1 // indirect
@@ -155,8 +156,8 @@ require (
 
 replace (
 	github.com/99designs/keyring => github.com/cosmos/keyring v1.1.7-0.20210622111912-ef00f8ac3d76
+	github.com/cosmos/cosmos-sdk => github.com/hupayx-com/cosmos-sdk v0.45.3-hupayx
 	github.com/gogo/protobuf => github.com/regen-network/protobuf v1.3.3-alpha.regen.1
+	github.com/tharsis/ethermint => github.com/hupayx-com/ethermint v0.13.0-hupayx
 	google.golang.org/grpc => google.golang.org/grpc v1.33.2
-    github.com/tharsis/ethermint  => github.com/hupayx-com/ethermint v0.13.0-hupayx
-	github.com/cosmos/cosmos-sdk  => github.com/hupayx-com/cosmos-sdk v0.45.3-hupayx
 )
