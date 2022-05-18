@@ -651,8 +651,8 @@ github.com/huin/goupnp v1.0.1-0.20210310174557-0ca763054c88/go.mod h1:nNs7wvRfN1
 github.com/huin/goupnp v1.0.2 h1:RfGLP+h3mvisuWEyybxNq5Eft3NWhHLPeUN72kpKZoI=
 github.com/huin/goupnp v1.0.2/go.mod h1:0dxJBVBHqTMjIUMkESDTNgOOx/Mw5wYIfyFmdzSamkM=
 github.com/huin/goutil v0.0.0-20170803182201-1ca381bf3150/go.mod h1:PpLOETDnJ0o3iZrZfqZzyLl6l7F3c6L1oWn7OICBi6o=
-github.com/hupayx-com/cosmos-sdk v0.45.2-hupayx h1:cqwNe8jnAOZjUW5s1STAtg292pzZFcwuhQK3UVauyss=
-github.com/hupayx-com/cosmos-sdk v0.45.2-hupayx/go.mod h1:DhSVBqJkhjB694w99FudptzPhU0XHd/qcyiNCLOjkds=
+github.com/hupayx-com/cosmos-sdk v0.45.3-hupayx h1:KkB99k43O91fmmtFEifHv4a1NQU+06O30Y3KZiRxhoo=
+github.com/hupayx-com/cosmos-sdk v0.45.3-hupayx/go.mod h1:DhSVBqJkhjB694w99FudptzPhU0XHd/qcyiNCLOjkds=
 github.com/hupayx-com/ethermint v0.13.0-hupayx h1:vOsBErYVo3FabEeJyCmbskgCdGLtCWJapzSAff8Ah/0=
 github.com/hupayx-com/ethermint v0.13.0-hupayx/go.mod h1:7hYNIhcpoNSAQediQPav3phiWG2AkgLVSf+zmTZg6O0=
 github.com/hupayx-com/multiCoinSend v0.0.2 h1:svgzFwcIMw6YjzNz+2rb3rFemE5dGmqDHv/ca97l8BE=
