@@ -523,6 +523,8 @@ func NewEvmos(
 	)
 
 	app.MulticoinsendKeeper = *multicoinsendmodulekeeper.NewKeeper(
+		appCodec,
+		keys[multicoinsendmoduletypes.StoreKey],
 		keys[multicoinsendmoduletypes.MemStoreKey],
 		app.BankKeeper,
 		app.GetSubspace(multicoinsendmoduletypes.ModuleName),
