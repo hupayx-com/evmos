@@ -10,9 +10,10 @@ const (
 	// UpgradeName is the shared upgrade plan name for mainnet and testnet
 	UpgradeName = "v5.0.1-hupayx"
 	// MainnetUpgradeHeight defines the Evmos mainnet block height on which the upgrade will take place
-	MainnetUpgradeHeight = 837_500
+	// 1일에 172800 + 226060
+	MainnetUpgradeHeight = 312_500
 	// TestnetUpgradeHeight defines the Evmos testnet block height on which the upgrade will take place
-	TestnetUpgradeHeight = 1_762_500
+	TestnetUpgradeHeight = 762_500
 	// UpgradeInfo defines the binaries that will be used for the upgrade
 	UpgradeInfo = `'{"binaries":{"darwin/arm64":"https://github.com/hupayx-com/evmos/releases/download/v5.0.1-hupayx/evmos_5.0.1-hupayx_Darwin_arm64.tar.gz",
 	                             "darwin/x86_64":"https://github.com/hupayx-com/evmos/releases/download/v5.0.1-hupayx/evmos_5.0.1-hupayx_Darwin_x86_64.tar.gz",
@@ -35,9 +36,9 @@ const (
 )
 
 var (
-	// MainnetMinGasPrices defines 25B aevmos (or atevmos) as the minimum gas price value on the fee market module.
+	// MainnetMinGasPrices defines 2500B aevmos (or atevmos) as the minimum gas price value on the fee market module.
 	// See https://commonwealth.im/evmos/discussion/5073-global-min-gas-price-value-for-cosmos-sdk-and-evm-transaction-choosing-a-value for reference
-	MainnetMinGasPrices = sdk.NewDec(25_000_000_000)
+	MainnetMinGasPrices = sdk.NewDec(2_500_000_000_000)
 	// MainnetMinGasMultiplier defines the min gas multiplier value on the fee market module.
 	// 50% of the leftover gas will be refunded
 	MainnetMinGasMultiplier = sdk.NewDecWithPrec(5, 1)
