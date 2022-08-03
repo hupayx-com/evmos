@@ -4,7 +4,7 @@ go 1.18
 
 require (
 	github.com/armon/go-metrics v0.4.0
-	github.com/cosmos/cosmos-sdk v0.45.5
+	github.com/cosmos/cosmos-sdk v0.45.6
 	github.com/cosmos/go-bip39 v1.0.0
 	github.com/cosmos/ibc-go/v3 v3.1.1
 	github.com/ethereum/go-ethereum v1.10.16
@@ -13,22 +13,21 @@ require (
 	github.com/golang/protobuf v1.5.2
 	github.com/gorilla/mux v1.8.0
 	github.com/grpc-ecosystem/grpc-gateway v1.16.0
+	github.com/hupayx-com/multiCoinSend v0.0.2
+	github.com/hupayx-com/taycanSwap v0.0.1
 	github.com/onsi/ginkgo/v2 v2.1.4
-	github.com/onsi/gomega v1.19.0
+	github.com/onsi/gomega v1.20.0
 	github.com/pkg/errors v0.9.1
 	github.com/rakyll/statik v0.1.7
 	github.com/spf13/cast v1.5.0
 	github.com/spf13/cobra v1.5.0
-	github.com/stretchr/testify v1.7.5
+	github.com/stretchr/testify v1.8.0
 	github.com/tendermint/tendermint v0.34.20-0.20220517115723-e6f071164839
 	github.com/tendermint/tm-db v0.6.7
 	go.opencensus.io v0.23.0
-	google.golang.org/genproto v0.0.0-20220627200112-0a929928cb33
+	google.golang.org/genproto v0.0.0-20220711132622-b6f31b0ceb50
 	google.golang.org/grpc v1.47.0
-	google.golang.org/protobuf v1.28.0
-	
-	github.com/hupayx-com/multiCoinSend v0.0.2
-	github.com/hupayx-com/taycanSwap v0.0.1
+	google.golang.org/protobuf v1.28.1
 )
 
 require (
@@ -75,9 +74,10 @@ require (
 	github.com/go-stack/stack v1.8.0 // indirect
 	github.com/godbus/dbus v0.0.0-20190726142602-4481cbc300e2 // indirect
 	github.com/gogo/gateway v1.1.0 // indirect
-	github.com/golang/glog v0.0.0-20210429001901-424d2337a529 // indirect
+	github.com/golang/glog v1.0.0 // indirect
 	github.com/golang/snappy v0.0.4 // indirect
 	github.com/google/btree v1.0.1 // indirect
+	github.com/google/go-cmp v0.5.8 // indirect
 	github.com/google/orderedcode v0.0.1 // indirect
 	github.com/google/uuid v1.3.0 // indirect
 	github.com/gorilla/handlers v1.5.1 // indirect
@@ -158,9 +158,7 @@ require (
 
 replace (
 	github.com/99designs/keyring => github.com/cosmos/keyring v1.1.7-0.20210622111912-ef00f8ac3d76
+	github.com/evmos/ethermint => github.com/hupayx-com/ethermint v0.18.0-hupayx
 	github.com/gogo/protobuf => github.com/regen-network/protobuf v1.3.3-alpha.regen.1
-	// github.com/cosmos/cosmos-sdk => github.com/hupayx-com/cosmos-sdk v0.45.3-hupayx
-	// github.com/tharsis/ethermint => github.com/hupayx-com/ethermint v0.14.0-hupayx
-	github.com/evmos/ethermint => github.com/hupayx-com/ethermint v0.17.0-hupayx
 	google.golang.org/grpc => google.golang.org/grpc v1.33.2
 )

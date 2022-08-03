@@ -108,11 +108,6 @@ import (
 	_ "github.com/evmos/evmos/v7/client/docs/statik"
 
 	"github.com/evmos/evmos/v7/app/ante"
-	v2 "github.com/evmos/evmos/v7/app/upgrades/v2"
-	v4 "github.com/evmos/evmos/v7/app/upgrades/v4"
-	v5 "github.com/evmos/evmos/v7/app/upgrades/v5"
-	v6 "github.com/evmos/evmos/v7/app/upgrades/v6"
-	v7 "github.com/evmos/evmos/v7/app/upgrades/v7"
 	"github.com/evmos/evmos/v7/x/claims"
 	claimskeeper "github.com/evmos/evmos/v7/x/claims/keeper"
 	claimstypes "github.com/evmos/evmos/v7/x/claims/types"
@@ -157,8 +152,8 @@ func init() {
 	// manually update the power reduction by replacing micro (u) -> atto (a) evmos
 	sdk.DefaultPowerReduction = ethermint.PowerReduction
 	// modify fee market parameter defaults through global
-	feemarkettypes.DefaultMinGasPrice = v5.MainnetMinGasPrices
-	feemarkettypes.DefaultMinGasMultiplier = v5.MainnetMinGasMultiplier
+	// feemarkettypes.DefaultMinGasPrice = v5.MainnetMinGasPrices
+	// feemarkettypes.DefaultMinGasMultiplier = v5.MainnetMinGasMultiplier
 }
 
 // Name defines the application binary name
@@ -1056,61 +1051,61 @@ func initParamsKeeper(
 }
 
 func (app *Evmos) setupUpgradeHandlers() {
-	// v2 upgrade handler
-	app.UpgradeKeeper.SetUpgradeHandler(
-		v2.UpgradeName,
-		v2.CreateUpgradeHandler(app.mm, app.configurator),
-	)
+	// // v2 upgrade handler
+	// app.UpgradeKeeper.SetUpgradeHandler(
+	// 	v2.UpgradeName,
+	// 	v2.CreateUpgradeHandler(app.mm, app.configurator),
+	// )
 
-	// NOTE: no v3 upgrade handler as it required an unscheduled manual upgrade.
+	// // NOTE: no v3 upgrade handler as it required an unscheduled manual upgrade.
 
-	// v4 upgrade handler
-	app.UpgradeKeeper.SetUpgradeHandler(
-		v4.UpgradeName,
-		v4.CreateUpgradeHandler(
-			app.mm, app.configurator,
-			app.IBCKeeper.ClientKeeper,
-		),
-	)
+	// // v4 upgrade handler
+	// app.UpgradeKeeper.SetUpgradeHandler(
+	// 	v4.UpgradeName,
+	// 	v4.CreateUpgradeHandler(
+	// 		app.mm, app.configurator,
+	// 		app.IBCKeeper.ClientKeeper,
+	// 	),
+	// )
 
-	// v5 upgrade handler
-	app.UpgradeKeeper.SetUpgradeHandler(
-		v5.UpgradeName,
-		v5.CreateUpgradeHandler(
-			app.mm, app.configurator,
-			app.BankKeeper,
-			app.ClaimsKeeper,
-			app.StakingKeeper,
-			app.ParamsKeeper,
-			app.TransferKeeper,
-			app.SlashingKeeper,
-		),
-	)
+	// // v5 upgrade handler
+	// app.UpgradeKeeper.SetUpgradeHandler(
+	// 	v5.UpgradeName,
+	// 	v5.CreateUpgradeHandler(
+	// 		app.mm, app.configurator,
+	// 		app.BankKeeper,
+	// 		app.ClaimsKeeper,
+	// 		app.StakingKeeper,
+	// 		app.ParamsKeeper,
+	// 		app.TransferKeeper,
+	// 		app.SlashingKeeper,
+	// 	),
+	// )
 
-	// v6 upgrade handler
-	app.UpgradeKeeper.SetUpgradeHandler(
-		v6.UpgradeName,
-		v6.CreateUpgradeHandler(
-			app.mm, app.configurator,
-			app.BankKeeper,
-			app.ClaimsKeeper,
-			app.StakingKeeper,
-			app.ParamsKeeper,
-			app.TransferKeeper,
-			app.SlashingKeeper,
-		),
-	)
+	// // v6 upgrade handler
+	// app.UpgradeKeeper.SetUpgradeHandler(
+	// 	v6.UpgradeName,
+	// 	v6.CreateUpgradeHandler(
+	// 		app.mm, app.configurator,
+	// 		app.BankKeeper,
+	// 		app.ClaimsKeeper,
+	// 		app.StakingKeeper,
+	// 		app.ParamsKeeper,
+	// 		app.TransferKeeper,
+	// 		app.SlashingKeeper,
+	// 	),
+	// )
 
 	// v7 upgrade handler
-	app.UpgradeKeeper.SetUpgradeHandler(
-		v7.UpgradeName,
-		v7.CreateUpgradeHandler(
-			app.mm, app.configurator,
-			app.BankKeeper,
-			app.InflationKeeper,
-			app.ClaimsKeeper,
-		),
-	)
+	// app.UpgradeKeeper.SetUpgradeHandler(
+	// 	v7.UpgradeName,
+	// 	v7.CreateUpgradeHandler(
+	// 		app.mm, app.configurator,
+	// 		app.BankKeeper,
+	// 		app.InflationKeeper,
+	// 		app.ClaimsKeeper,
+	// 	),
+	// )
 
 	// When a planned update height is reached, the old binary will panic
 	// writing on disk the height and name of the update that triggered it
@@ -1127,16 +1122,16 @@ func (app *Evmos) setupUpgradeHandlers() {
 	var storeUpgrades *storetypes.StoreUpgrades
 
 	switch upgradeInfo.Name {
-	case v2.UpgradeName:
-		// no store upgrades in v2
-	case v4.UpgradeName:
-		// no store upgrades in v4
-	case v5.UpgradeName:
-		// no store upgrades in v5
-	case v6.UpgradeName:
-		// no store upgrades in v6
-	case v7.UpgradeName:
-		// no store upgrades in v7
+	// case v2.UpgradeName:
+	// 	// no store upgrades in v2
+	// case v4.UpgradeName:
+	// 	// no store upgrades in v4
+	// case v5.UpgradeName:
+	// 	// no store upgrades in v5
+	// case v6.UpgradeName:
+	// 	// no store upgrades in v6
+	// case v7.UpgradeName:
+	// 	// no store upgrades in v7
 	}
 
 	if storeUpgrades != nil {
