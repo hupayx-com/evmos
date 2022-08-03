@@ -741,8 +741,8 @@ github.com/huin/goupnp v1.0.0/go.mod h1:n9v9KO1tAxYH82qOn+UTIFQDmx5n1Zxd/ClZDMX7
 github.com/huin/goupnp v1.0.2 h1:RfGLP+h3mvisuWEyybxNq5Eft3NWhHLPeUN72kpKZoI=
 github.com/huin/goupnp v1.0.2/go.mod h1:0dxJBVBHqTMjIUMkESDTNgOOx/Mw5wYIfyFmdzSamkM=
 github.com/huin/goutil v0.0.0-20170803182201-1ca381bf3150/go.mod h1:PpLOETDnJ0o3iZrZfqZzyLl6l7F3c6L1oWn7OICBi6o=
-github.com/hupayx-com/ethermint v0.17.0-hupayx h1:T3yWsSJ0soh/p7k+v33NQ3RzxS7syNdWzot+9UMy1jc=
-github.com/hupayx-com/ethermint v0.17.0-hupayx/go.mod h1:BmXULZy8lbld5KgNE0zM4b7Dy1irPpL6nsDH11SMNzQ=
+github.com/hupayx-com/ethermint v0.17.2-hupayx h1:0XwfVkTJymq0orHYmA+Fo9GKaw8xeM8mjR8cb/Ih+70=
+github.com/hupayx-com/ethermint v0.17.2-hupayx/go.mod h1:BmXULZy8lbld5KgNE0zM4b7Dy1irPpL6nsDH11SMNzQ=
 github.com/hupayx-com/multiCoinSend v0.0.2 h1:svgzFwcIMw6YjzNz+2rb3rFemE5dGmqDHv/ca97l8BE=
 github.com/hupayx-com/multiCoinSend v0.0.2/go.mod h1:CJ3ivWMDYLzjHQiq8Z3c/y8Y4oj3czxhthIRtpujnkI=
 github.com/hupayx-com/taycanSwap v0.0.1 h1:KR0G/Gb7QDgUZqoNnoYmvvwSXAZKsDCDVDTwfBIXFm8=
