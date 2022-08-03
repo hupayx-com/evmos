@@ -105,12 +105,12 @@ import (
 	feemarkettypes "github.com/evmos/ethermint/x/feemarket/types"
 
 	// unnamed import of statik for swagger UI support
-	_ "github.com/evmos/evmos/v6/client/docs/statik"
 	"github.com/evmos/evmos/v6/app/ante"
 	v2 "github.com/evmos/evmos/v6/app/upgrades/v2"
 	v4 "github.com/evmos/evmos/v6/app/upgrades/v4"
 	v5 "github.com/evmos/evmos/v6/app/upgrades/v5"
 	v6 "github.com/evmos/evmos/v6/app/upgrades/v6"
+	_ "github.com/evmos/evmos/v6/client/docs/statik"
 	"github.com/evmos/evmos/v6/x/claims"
 	claimskeeper "github.com/evmos/evmos/v6/x/claims/keeper"
 	claimstypes "github.com/evmos/evmos/v6/x/claims/types"
@@ -134,7 +134,7 @@ import (
 	"github.com/evmos/evmos/v6/x/vesting"
 	vestingkeeper "github.com/evmos/evmos/v6/x/vesting/keeper"
 	vestingtypes "github.com/evmos/evmos/v6/x/vesting/types"
- 
+
 	multicoinsendmodule "github.com/hupayx-com/multiCoinSend/x/multicoinsend"
 	multicoinsendmodulekeeper "github.com/hupayx-com/multiCoinSend/x/multicoinsend/keeper"
 	multicoinsendmoduletypes "github.com/hupayx-com/multiCoinSend/x/multicoinsend/types"
@@ -142,7 +142,7 @@ import (
 	taycanswapmodule "github.com/hupayx-com/taycanSwap/x/taycanswap"
 	taycanswapmodulekeeper "github.com/hupayx-com/taycanSwap/x/taycanswap/keeper"
 	taycanswapmoduletypes "github.com/hupayx-com/taycanSwap/x/taycanswap/types"
- 
+)
 
 func init() {
 	userHomeDir, err := os.UserHomeDir()

@@ -13,6 +13,8 @@ require (
 	github.com/golang/protobuf v1.5.2
 	github.com/gorilla/mux v1.8.0
 	github.com/grpc-ecosystem/grpc-gateway v1.16.0
+	github.com/hupayx-com/multiCoinSend v0.0.2
+	github.com/hupayx-com/taycanSwap v0.0.1
 	github.com/onsi/ginkgo/v2 v2.1.4
 	github.com/onsi/gomega v1.19.0
 	github.com/pkg/errors v0.9.1
@@ -26,9 +28,6 @@ require (
 	google.golang.org/genproto v0.0.0-20220627200112-0a929928cb33
 	google.golang.org/grpc v1.47.0
 	google.golang.org/protobuf v1.28.0
-	
-	github.com/hupayx-com/multiCoinSend v0.0.2
-	github.com/hupayx-com/taycanSwap v0.0.1
 )
 
 require (
@@ -158,9 +157,7 @@ require (
 
 replace (
 	github.com/99designs/keyring => github.com/cosmos/keyring v1.1.7-0.20210622111912-ef00f8ac3d76
+	github.com/evmos/ethermint => github.com/hupayx-com/ethermint v0.17.2-hupayx
 	github.com/gogo/protobuf => github.com/regen-network/protobuf v1.3.3-alpha.regen.1
-	// github.com/cosmos/cosmos-sdk => github.com/hupayx-com/cosmos-sdk v0.45.3-hupayx
-	// github.com/tharsis/ethermint => github.com/hupayx-com/ethermint v0.14.0-hupayx
-	github.com/evmos/ethermint => github.com/hupayx-com/ethermint v0.17.0-hupayx
 	google.golang.org/grpc => google.golang.org/grpc v1.33.2
 )
