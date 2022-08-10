@@ -1,12 +1,9 @@
 package app
 
 import (
-	"fmt"
-
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	upgradetypes "github.com/cosmos/cosmos-sdk/x/upgrade/types"
+	//	upgradetypes "github.com/cosmos/cosmos-sdk/x/upgrade/types"
 
-	v7 "github.com/evmos/evmos/v7/app/upgrades/v7"
 	"github.com/evmos/evmos/v7/types"
 )
 
@@ -24,9 +21,9 @@ func (app *Evmos) ScheduleForkUpgrade(ctx sdk.Context) {
 		return
 	}
 
-	upgradePlan := upgradetypes.Plan{
-		Height: ctx.BlockHeight(),
-	}
+//	upgradePlan := upgradetypes.Plan{
+//		Height: ctx.BlockHeight(),
+//	}
 
 	// handle mainnet forks
 	switch ctx.BlockHeight() {
@@ -36,20 +33,20 @@ func (app *Evmos) ScheduleForkUpgrade(ctx sdk.Context) {
 	// case v4.MainnetUpgradeHeight:
 	// 	upgradePlan.Name = v4.UpgradeName
 	// 	upgradePlan.Info = v4.UpgradeInfo
-	case v7.MainnetUpgradeHeight:
-		upgradePlan.Name = v7.UpgradeName
-		upgradePlan.Info = v7.UpgradeInfo
+	// case v7.MainnetUpgradeHeight:
+	// 	upgradePlan.Name = v7.UpgradeName
+	// 	upgradePlan.Info = v7.UpgradeInfo
 	default:
 		// No-op
 		return
 	}
 
-	if err := app.UpgradeKeeper.ScheduleUpgrade(ctx, upgradePlan); err != nil {
-		panic(
-			fmt.Errorf(
-				"failed to schedule upgrade %s during BeginBlock at height %d: %w",
-				upgradePlan.Name, ctx.BlockHeight(), err,
-			),
-		)
-	}
+	// if err := app.UpgradeKeeper.ScheduleUpgrade(ctx, upgradePlan); err != nil {
+	// 	panic(
+	// 		fmt.Errorf(
+	// 			"failed to schedule upgrade %s during BeginBlock at height %d: %w",
+	// 			upgradePlan.Name, ctx.BlockHeight(), err,
+	// 		),
+	// 	)
+	// }
 }
