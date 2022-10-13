@@ -204,7 +204,7 @@ var (
 		epochs.AppModuleBasic{},
 		claims.AppModuleBasic{},
 		recovery.AppModuleBasic{},
-		revenue.AppModuleBasic{},
+		// revenue.AppModuleBasic{},
 		multicoinsendmodule.AppModuleBasic{},
 		taycanswapmodule.AppModuleBasic{},
 	)
@@ -350,7 +350,7 @@ func NewEvmos(
 		// evmos keys
 		inflationtypes.StoreKey, erc20types.StoreKey, incentivestypes.StoreKey,
 		epochstypes.StoreKey, claimstypes.StoreKey, vestingtypes.StoreKey,
-		revenuetypes.StoreKey,
+		// revenuetypes.StoreKey,
 		multicoinsendmoduletypes.StoreKey,
 		taycanswapmoduletypes.StoreKey,
 	)
@@ -668,7 +668,7 @@ func NewEvmos(
 		claimstypes.ModuleName,
 		incentivestypes.ModuleName,
 		recoverytypes.ModuleName,
-		revenuetypes.ModuleName,
+		// revenuetypes.ModuleName,
 		multicoinsendmoduletypes.ModuleName,
 		taycanswapmoduletypes.ModuleName,
 	)
@@ -703,7 +703,7 @@ func NewEvmos(
 		erc20types.ModuleName,
 		incentivestypes.ModuleName,
 		recoverytypes.ModuleName,
-		revenuetypes.ModuleName,
+		// revenuetypes.ModuleName,
 		multicoinsendmoduletypes.ModuleName,
 		taycanswapmoduletypes.ModuleName,
 	)
@@ -745,7 +745,7 @@ func NewEvmos(
 		incentivestypes.ModuleName,
 		epochstypes.ModuleName,
 		recoverytypes.ModuleName,
-		revenuetypes.ModuleName,
+		// revenuetypes.ModuleName,
 		// NOTE: crisis module must go at the end to check for invariants on each module
 		crisistypes.ModuleName,
 		multicoinsendmoduletypes.ModuleName,
@@ -1156,9 +1156,9 @@ func (app *Evmos) setupUpgradeHandlers() {
 	switch upgradeInfo.Name {
 	case v8.UpgradeName:
 		// add revenue module for testnet (v7 -> v8)
-		storeUpgrades = &storetypes.StoreUpgrades{
-			Added: []string{revenuetypes.ModuleName},
-		}
+		// storeUpgrades = &storetypes.StoreUpgrades{
+		// 	Added: []string{revenuetypes.ModuleName},
+		// }
 		// case v81.UpgradeName:
 		// 	// NOTE: store upgrade for mainnet was not registered and was replaced by
 		// 	// the v8.2 upgrade.
