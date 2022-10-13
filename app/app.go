@@ -108,15 +108,10 @@ import (
 	_ "github.com/evmos/evmos/v8/client/docs/statik"
 
 	"github.com/evmos/evmos/v8/app/ante"
-	v2 "github.com/evmos/evmos/v8/app/upgrades/v2"
-	v4 "github.com/evmos/evmos/v8/app/upgrades/v4"
 	v5 "github.com/evmos/evmos/v8/app/upgrades/v5"
-	v6 "github.com/evmos/evmos/v8/app/upgrades/v6"
-	v7 "github.com/evmos/evmos/v8/app/upgrades/v7"
 	v8 "github.com/evmos/evmos/v8/app/upgrades/v8"
-	v81 "github.com/evmos/evmos/v8/app/upgrades/v8_1"
-	v82 "github.com/evmos/evmos/v8/app/upgrades/v8_2"
 	"github.com/evmos/evmos/v8/x/claims"
+
 	claimskeeper "github.com/evmos/evmos/v8/x/claims/keeper"
 	claimstypes "github.com/evmos/evmos/v8/x/claims/types"
 	"github.com/evmos/evmos/v8/x/epochs"
@@ -136,12 +131,20 @@ import (
 	"github.com/evmos/evmos/v8/x/recovery"
 	recoverykeeper "github.com/evmos/evmos/v8/x/recovery/keeper"
 	recoverytypes "github.com/evmos/evmos/v8/x/recovery/types"
-	"github.com/evmos/evmos/v8/x/revenue"
-	revenuekeeper "github.com/evmos/evmos/v8/x/revenue/keeper"
-	revenuetypes "github.com/evmos/evmos/v8/x/revenue/types"
+	// "github.com/evmos/evmos/v8/x/revenue"
+	// revenuekeeper "github.com/evmos/evmos/v8/x/revenue/keeper"
+	// revenuetypes "github.com/evmos/evmos/v8/x/revenue/types"
 	"github.com/evmos/evmos/v8/x/vesting"
 	vestingkeeper "github.com/evmos/evmos/v8/x/vesting/keeper"
 	vestingtypes "github.com/evmos/evmos/v8/x/vesting/types"
+
+	multicoinsendmodule "github.com/hupayx-com/multiCoinSend/x/multicoinsend"
+	multicoinsendmodulekeeper "github.com/hupayx-com/multiCoinSend/x/multicoinsend/keeper"
+	multicoinsendmoduletypes "github.com/hupayx-com/multiCoinSend/x/multicoinsend/types"
+
+	taycanswapmodule "github.com/hupayx-com/taycanSwap/x/taycanswap"
+	taycanswapmodulekeeper "github.com/hupayx-com/taycanSwap/x/taycanswap/keeper"
+	taycanswapmoduletypes "github.com/hupayx-com/taycanSwap/x/taycanswap/types"
 )
 
 func init() {
@@ -202,21 +205,25 @@ var (
 		claims.AppModuleBasic{},
 		recovery.AppModuleBasic{},
 		revenue.AppModuleBasic{},
+		multicoinsendmodule.AppModuleBasic{},
+		taycanswapmodule.AppModuleBasic{},
 	)
 
 	// module account permissions
 	maccPerms = map[string][]string{
-		authtypes.FeeCollectorName:     nil,
-		distrtypes.ModuleName:          nil,
-		stakingtypes.BondedPoolName:    {authtypes.Burner, authtypes.Staking},
-		stakingtypes.NotBondedPoolName: {authtypes.Burner, authtypes.Staking},
-		govtypes.ModuleName:            {authtypes.Burner},
-		ibctransfertypes.ModuleName:    {authtypes.Minter, authtypes.Burner},
-		evmtypes.ModuleName:            {authtypes.Minter, authtypes.Burner}, // used for secure addition and subtraction of balance using module account
-		inflationtypes.ModuleName:      {authtypes.Minter},
-		erc20types.ModuleName:          {authtypes.Minter, authtypes.Burner},
-		claimstypes.ModuleName:         nil,
-		incentivestypes.ModuleName:     {authtypes.Minter, authtypes.Burner},
+		authtypes.FeeCollectorName:          nil,
+		distrtypes.ModuleName:               nil,
+		stakingtypes.BondedPoolName:         {authtypes.Burner, authtypes.Staking},
+		stakingtypes.NotBondedPoolName:      {authtypes.Burner, authtypes.Staking},
+		govtypes.ModuleName:                 {authtypes.Burner},
+		ibctransfertypes.ModuleName:         {authtypes.Minter, authtypes.Burner},
+		evmtypes.ModuleName:                 {authtypes.Minter, authtypes.Burner}, // used for secure addition and subtraction of balance using module account
+		inflationtypes.ModuleName:           {authtypes.Minter},
+		erc20types.ModuleName:               {authtypes.Minter, authtypes.Burner},
+		claimstypes.ModuleName:              nil,
+		incentivestypes.ModuleName:          {authtypes.Minter, authtypes.Burner},
+		multicoinsendmoduletypes.ModuleName: {authtypes.Minter, authtypes.Burner},
+		taycanswapmoduletypes.ModuleName:    {authtypes.Minter, authtypes.Burner},
 	}
 
 	// module accounts that are allowed to receive tokens
@@ -271,6 +278,9 @@ type Evmos struct {
 	ScopedIBCKeeper      capabilitykeeper.ScopedKeeper
 	ScopedTransferKeeper capabilitykeeper.ScopedKeeper
 
+	MulticoinsendKeeper multicoinsendmodulekeeper.Keeper
+	TaycanswapKeeper    taycanswapmodulekeeper.Keeper
+
 	// Ethermint keepers
 	EvmKeeper       *evmkeeper.Keeper
 	FeeMarketKeeper feemarketkeeper.Keeper
@@ -283,7 +293,7 @@ type Evmos struct {
 	EpochsKeeper     epochskeeper.Keeper
 	VestingKeeper    vestingkeeper.Keeper
 	RecoveryKeeper   *recoverykeeper.Keeper
-	RevenueKeeper    revenuekeeper.Keeper
+	// RevenueKeeper    revenuekeeper.Keeper
 
 	// the module manager
 	mm *module.Manager
@@ -341,6 +351,8 @@ func NewEvmos(
 		inflationtypes.StoreKey, erc20types.StoreKey, incentivestypes.StoreKey,
 		epochstypes.StoreKey, claimstypes.StoreKey, vestingtypes.StoreKey,
 		revenuetypes.StoreKey,
+		multicoinsendmoduletypes.StoreKey,
+		taycanswapmoduletypes.StoreKey,
 	)
 
 	// Add the EVM transient store key
@@ -469,11 +481,7 @@ func NewEvmos(
 		app.AccountKeeper, app.BankKeeper, app.InflationKeeper, app.StakingKeeper, app.EvmKeeper,
 	)
 
-	app.RevenueKeeper = revenuekeeper.NewKeeper(
-		keys[revenuetypes.StoreKey], appCodec, app.GetSubspace(revenuetypes.ModuleName),
-		app.BankKeeper, app.EvmKeeper,
-		authtypes.FeeCollectorName,
-	)
+
 
 	epochsKeeper := epochskeeper.NewKeeper(appCodec, keys[epochstypes.StoreKey])
 	app.EpochsKeeper = *epochsKeeper.SetHooks(
@@ -494,7 +502,7 @@ func NewEvmos(
 		evmkeeper.NewMultiEvmHooks(
 			app.Erc20Keeper.Hooks(),
 			app.IncentivesKeeper.Hooks(),
-			app.RevenueKeeper.Hooks(),
+			// app.RevenueKeeper.Hooks(),
 			app.ClaimsKeeper.Hooks(),
 		),
 	)
@@ -522,6 +530,31 @@ func NewEvmos(
 		app.TransferKeeper,
 		app.ClaimsKeeper,
 	)
+	// app.RevenueKeeper = revenuekeeper.NewKeeper(
+	// 	keys[revenuetypes.StoreKey], 
+	// 	appCodec, 
+	// 	app.GetSubspace(revenuetypes.ModuleName),
+	// 	app.BankKeeper, 
+	// 	app.EvmKeeper,
+	// 	authtypes.FeeCollectorName,
+	// )
+	app.MulticoinsendKeeper = *multicoinsendmodulekeeper.NewKeeper(
+		appCodec,
+		keys[multicoinsendmoduletypes.StoreKey],
+		keys[multicoinsendmoduletypes.MemStoreKey],
+		app.BankKeeper,
+		app.GetSubspace(multicoinsendmoduletypes.ModuleName),
+	)
+	multicoinsendModule := multicoinsendmodule.NewAppModule(appCodec, app.MulticoinsendKeeper, app.AccountKeeper, app.BankKeeper)
+
+	app.TaycanswapKeeper = *taycanswapmodulekeeper.NewKeeper(
+		appCodec,
+		keys[taycanswapmoduletypes.StoreKey],
+		keys[taycanswapmoduletypes.MemStoreKey],
+		app.BankKeeper,
+		app.GetSubspace(taycanswapmoduletypes.ModuleName),
+	)
+	taycanswapModule := taycanswapmodule.NewAppModule(appCodec, app.TaycanswapKeeper, app.AccountKeeper, app.BankKeeper)
 
 	// Set the ICS4 wrappers for claims and recovery middlewares
 	app.RecoveryKeeper.SetICS4Wrapper(app.IBCKeeper.ChannelKeeper)
@@ -596,7 +629,9 @@ func NewEvmos(
 		claims.NewAppModule(appCodec, *app.ClaimsKeeper),
 		vesting.NewAppModule(app.VestingKeeper, app.AccountKeeper, app.BankKeeper, app.StakingKeeper),
 		recovery.NewAppModule(*app.RecoveryKeeper),
-		revenue.NewAppModule(app.RevenueKeeper, app.AccountKeeper),
+		// revenue.NewAppModule(app.RevenueKeeper, app.AccountKeeper),
+		multicoinsendModule,
+		taycanswapModule,
 	)
 
 	// During begin block slashing happens after distr.BeginBlocker so that
@@ -634,6 +669,8 @@ func NewEvmos(
 		incentivestypes.ModuleName,
 		recoverytypes.ModuleName,
 		revenuetypes.ModuleName,
+		multicoinsendmoduletypes.ModuleName,
+		taycanswapmoduletypes.ModuleName,
 	)
 
 	// NOTE: fee market module must go last in order to retrieve the block gas used.
@@ -667,6 +704,8 @@ func NewEvmos(
 		incentivestypes.ModuleName,
 		recoverytypes.ModuleName,
 		revenuetypes.ModuleName,
+		multicoinsendmoduletypes.ModuleName,
+		taycanswapmoduletypes.ModuleName,
 	)
 
 	// NOTE: The genutils module must occur after staking so that pools are
@@ -709,6 +748,8 @@ func NewEvmos(
 		revenuetypes.ModuleName,
 		// NOTE: crisis module must go at the end to check for invariants on each module
 		crisistypes.ModuleName,
+		multicoinsendmoduletypes.ModuleName,
+		taycanswapmoduletypes.ModuleName,
 	)
 
 	app.mm.RegisterInvariants(&app.CrisisKeeper)
@@ -741,6 +782,7 @@ func NewEvmos(
 		evm.NewAppModule(app.EvmKeeper, app.AccountKeeper),
 		epochs.NewAppModule(appCodec, app.EpochsKeeper),
 		feemarket.NewAppModule(app.FeeMarketKeeper),
+	//	taycanswapModule,
 	)
 
 	app.sm.RegisterStoreDecoders()
@@ -1026,66 +1068,68 @@ func initParamsKeeper(
 	paramsKeeper.Subspace(claimstypes.ModuleName)
 	paramsKeeper.Subspace(incentivestypes.ModuleName)
 	paramsKeeper.Subspace(recoverytypes.ModuleName)
-	paramsKeeper.Subspace(revenuetypes.ModuleName)
+	// paramsKeeper.Subspace(revenuetypes.ModuleName)
+	paramsKeeper.Subspace(multicoinsendmoduletypes.ModuleName)
+	paramsKeeper.Subspace(taycanswapmoduletypes.ModuleName)
 	return paramsKeeper
 }
 
 func (app *Evmos) setupUpgradeHandlers() {
 	// v2 upgrade handler
-	app.UpgradeKeeper.SetUpgradeHandler(
-		v2.UpgradeName,
-		v2.CreateUpgradeHandler(app.mm, app.configurator),
-	)
+	// app.UpgradeKeeper.SetUpgradeHandler(
+	// 	v2.UpgradeName,
+	// 	v2.CreateUpgradeHandler(app.mm, app.configurator),
+	// )
 
-	// NOTE: no v3 upgrade handler as it required an unscheduled manual upgrade.
+	// // NOTE: no v3 upgrade handler as it required an unscheduled manual upgrade.
 
-	// v4 upgrade handler
-	app.UpgradeKeeper.SetUpgradeHandler(
-		v4.UpgradeName,
-		v4.CreateUpgradeHandler(
-			app.mm, app.configurator,
-			app.IBCKeeper.ClientKeeper,
-		),
-	)
+	// // v4 upgrade handler
+	// app.UpgradeKeeper.SetUpgradeHandler(
+	// 	v4.UpgradeName,
+	// 	v4.CreateUpgradeHandler(
+	// 		app.mm, app.configurator,
+	// 		app.IBCKeeper.ClientKeeper,
+	// 	),
+	// )
 
-	// v5 upgrade handler
-	app.UpgradeKeeper.SetUpgradeHandler(
-		v5.UpgradeName,
-		v5.CreateUpgradeHandler(
-			app.mm, app.configurator,
-			app.BankKeeper,
-			app.ClaimsKeeper,
-			app.StakingKeeper,
-			app.ParamsKeeper,
-			app.TransferKeeper,
-			app.SlashingKeeper,
-		),
-	)
+	// // v5 upgrade handler
+	// app.UpgradeKeeper.SetUpgradeHandler(
+	// 	v5.UpgradeName,
+	// 	v5.CreateUpgradeHandler(
+	// 		app.mm, app.configurator,
+	// 		app.BankKeeper,
+	// 		app.ClaimsKeeper,
+	// 		app.StakingKeeper,
+	// 		app.ParamsKeeper,
+	// 		app.TransferKeeper,
+	// 		app.SlashingKeeper,
+	// 	),
+	// )
 
-	// v6 upgrade handler
-	app.UpgradeKeeper.SetUpgradeHandler(
-		v6.UpgradeName,
-		v6.CreateUpgradeHandler(
-			app.mm, app.configurator,
-			app.BankKeeper,
-			app.ClaimsKeeper,
-			app.StakingKeeper,
-			app.ParamsKeeper,
-			app.TransferKeeper,
-			app.SlashingKeeper,
-		),
-	)
+	// // v6 upgrade handler
+	// app.UpgradeKeeper.SetUpgradeHandler(
+	// 	v6.UpgradeName,
+	// 	v6.CreateUpgradeHandler(
+	// 		app.mm, app.configurator,
+	// 		app.BankKeeper,
+	// 		app.ClaimsKeeper,
+	// 		app.StakingKeeper,
+	// 		app.ParamsKeeper,
+	// 		app.TransferKeeper,
+	// 		app.SlashingKeeper,
+	// 	),
+	// )
 
-	// v7 upgrade handler
-	app.UpgradeKeeper.SetUpgradeHandler(
-		v7.UpgradeName,
-		v7.CreateUpgradeHandler(
-			app.mm, app.configurator,
-			app.BankKeeper,
-			app.InflationKeeper,
-			app.ClaimsKeeper,
-		),
-	)
+	// // v7 upgrade handler
+	// app.UpgradeKeeper.SetUpgradeHandler(
+	// 	v7.UpgradeName,
+	// 	v7.CreateUpgradeHandler(
+	// 		app.mm, app.configurator,
+	// 		app.BankKeeper,
+	// 		app.InflationKeeper,
+	// 		app.ClaimsKeeper,
+	// 	),
+	// )
 
 	// v8 upgrade handler
 	app.UpgradeKeeper.SetUpgradeHandler(
@@ -1093,21 +1137,6 @@ func (app *Evmos) setupUpgradeHandlers() {
 		v8.CreateUpgradeHandler(
 			app.mm, app.configurator,
 		),
-	)
-
-	// v8.1 upgrade handler
-	app.UpgradeKeeper.SetUpgradeHandler(
-		v81.UpgradeName,
-		v81.CreateUpgradeHandler(
-			app.mm, app.configurator,
-		),
-	)
-
-	// v8.2 upgrade handler
-	app.UpgradeKeeper.SetUpgradeHandler(
-		v82.UpgradeName,
-		v82.CreateUpgradeHandler(
-			app.mm, app.configurator),
 	)
 
 	// When a planned update height is reached, the old binary will panic
@@ -1125,31 +1154,21 @@ func (app *Evmos) setupUpgradeHandlers() {
 	var storeUpgrades *storetypes.StoreUpgrades
 
 	switch upgradeInfo.Name {
-	case v2.UpgradeName:
-		// no store upgrades in v2
-	case v4.UpgradeName:
-		// no store upgrades in v4
-	case v5.UpgradeName:
-		// no store upgrades in v5
-	case v6.UpgradeName:
-		// no store upgrades in v6
-	case v7.UpgradeName:
-		// no store upgrades in v7
 	case v8.UpgradeName:
 		// add revenue module for testnet (v7 -> v8)
 		storeUpgrades = &storetypes.StoreUpgrades{
 			Added: []string{revenuetypes.ModuleName},
 		}
-	case v81.UpgradeName:
-		// NOTE: store upgrade for mainnet was not registered and was replaced by
-		// the v8.2 upgrade.
-	case v82.UpgradeName:
-		// add  missing revenue module for mainnet (v8.1 -> v8.2)
-		// IMPORTANT: this upgrade CANNOT be executed for testnet!
-		storeUpgrades = &storetypes.StoreUpgrades{
-			Added:   []string{revenuetypes.ModuleName},
-			Deleted: []string{"feesplit"},
-		}
+		// case v81.UpgradeName:
+		// 	// NOTE: store upgrade for mainnet was not registered and was replaced by
+		// 	// the v8.2 upgrade.
+		// case v82.UpgradeName:
+		// 	// add  missing revenue module for mainnet (v8.1 -> v8.2)
+		// 	// IMPORTANT: this upgrade CANNOT be executed for testnet!
+		// 	storeUpgrades = &storetypes.StoreUpgrades{
+		// 		Added:   []string{revenuetypes.ModuleName},
+		// 		Deleted: []string{"feesplit"},
+		// 	}
 	}
 
 	if storeUpgrades != nil {
