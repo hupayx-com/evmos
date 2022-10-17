@@ -131,6 +131,7 @@ import (
 	"github.com/evmos/evmos/v8/x/recovery"
 	recoverykeeper "github.com/evmos/evmos/v8/x/recovery/keeper"
 	recoverytypes "github.com/evmos/evmos/v8/x/recovery/types"
+
 	// "github.com/evmos/evmos/v8/x/revenue"
 	// revenuekeeper "github.com/evmos/evmos/v8/x/revenue/keeper"
 	// revenuetypes "github.com/evmos/evmos/v8/x/revenue/types"
@@ -481,8 +482,6 @@ func NewEvmos(
 		app.AccountKeeper, app.BankKeeper, app.InflationKeeper, app.StakingKeeper, app.EvmKeeper,
 	)
 
-
-
 	epochsKeeper := epochskeeper.NewKeeper(appCodec, keys[epochstypes.StoreKey])
 	app.EpochsKeeper = *epochsKeeper.SetHooks(
 		epochskeeper.NewMultiEpochHooks(
@@ -531,10 +530,10 @@ func NewEvmos(
 		app.ClaimsKeeper,
 	)
 	// app.RevenueKeeper = revenuekeeper.NewKeeper(
-	// 	keys[revenuetypes.StoreKey], 
-	// 	appCodec, 
+	// 	keys[revenuetypes.StoreKey],
+	// 	appCodec,
 	// 	app.GetSubspace(revenuetypes.ModuleName),
-	// 	app.BankKeeper, 
+	// 	app.BankKeeper,
 	// 	app.EvmKeeper,
 	// 	authtypes.FeeCollectorName,
 	// )

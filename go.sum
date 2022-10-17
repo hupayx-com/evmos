@@ -333,8 +333,6 @@ github.com/ethereum/go-ethereum v1.9.25/go.mod h1:vMkFiYLHI4tgPw4k2j4MHKoovchFE8
 github.com/ethereum/go-ethereum v1.10.19 h1:EOR5JbL4MD5yeOqv8W2iC1s4NximrTjqFccUz8lyBRA=
 github.com/ethereum/go-ethereum v1.10.19/go.mod h1:IJBNMtzKcNHPtllYihy6BL2IgK1u+32JriaTbdt4v+w=
 github.com/ettle/strcase v0.1.1/go.mod h1:hzDLsPC7/lwKyBOywSHEP89nt2pDgdy+No1NBA9o9VY=
-github.com/evmos/ethermint v0.19.2 h1:9sPg+7my7jZqKYZcls1+r5pQRw9oZO77TsEqtDohp88=
-github.com/evmos/ethermint v0.19.2/go.mod h1:pgPk2Anaw0cTwF7mRf0O+Zs4IjHLwkPpHZr6bTQbcWo=
 github.com/facebookgo/ensure v0.0.0-20160127193407-b4ab57deab51/go.mod h1:Yg+htXGokKKdzcwhuNDwVvN+uBxDGXJ7G/VN1d8fa64=
 github.com/facebookgo/ensure v0.0.0-20200202191622-63f1cf65ac4c h1:8ISkoahWXwZR41ois5lSJBSVw4D0OV19Ht/JSTzvSv0=
 github.com/facebookgo/stack v0.0.0-20160209184415-751773369052 h1:JWuenKqqX8nojtoVVWjGfOF9635RETekkoH6Cc9SX0A=
@@ -643,6 +641,8 @@ github.com/huin/goupnp v1.0.0/go.mod h1:n9v9KO1tAxYH82qOn+UTIFQDmx5n1Zxd/ClZDMX7
 github.com/huin/goupnp v1.0.3 h1:N8No57ls+MnjlB+JPiCVSOyy/ot7MJTqlo7rn+NYSqQ=
 github.com/huin/goupnp v1.0.3/go.mod h1:ZxNlw5WqJj6wSsRK5+YfflQGXYfccj5VgQsMNixHM7Y=
 github.com/huin/goutil v0.0.0-20170803182201-1ca381bf3150/go.mod h1:PpLOETDnJ0o3iZrZfqZzyLl6l7F3c6L1oWn7OICBi6o=
+github.com/hupayx-com/ethermint v0.19.2-hupayx h1:8Y13u/fSSqUl77U41JLLeGBUOH9BMZclss07l24KVQU=
+github.com/hupayx-com/ethermint v0.19.2-hupayx/go.mod h1:pgPk2Anaw0cTwF7mRf0O+Zs4IjHLwkPpHZr6bTQbcWo=
 github.com/hupayx-com/multiCoinSend v0.0.2 h1:svgzFwcIMw6YjzNz+2rb3rFemE5dGmqDHv/ca97l8BE=
 github.com/hupayx-com/multiCoinSend v0.0.2/go.mod h1:CJ3ivWMDYLzjHQiq8Z3c/y8Y4oj3czxhthIRtpujnkI=
 github.com/hupayx-com/taycanSwap v0.0.1 h1:KR0G/Gb7QDgUZqoNnoYmvvwSXAZKsDCDVDTwfBIXFm8=
