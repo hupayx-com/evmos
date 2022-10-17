@@ -4,7 +4,7 @@ const (
 	// UpgradeName is the shared upgrade plan name for mainnet and testnet
 	UpgradeName = "v8.0.0"
 	// MainnetUpgradeHeight defines the Evmos mainnet block height on which the upgrade will take place
-	MainnetUpgradeHeight = 3_503_600
+	MainnetUpgradeHeight = 3_506_000
 	// TestnetUpgradeHeight defines the Evmos testnet block height on which the upgrade will take place
 	TestnetUpgradeHeight = 4_600_000
 	// UpgradeInfo defines the binaries that will be used for the upgrade
